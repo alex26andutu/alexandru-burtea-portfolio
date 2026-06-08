@@ -1,7 +1,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 
 // Workshop image — craftsman hand-planing a walnut TV unit
-const DETAIL_IMAGE = '/images/process_workshop.jpg';
+const DETAIL_BASE = '/images/process_workshop';
 
 export default function ProcessSection() {
   const { t } = useLanguage();
@@ -39,15 +39,19 @@ export default function ProcessSection() {
           </ol>
           <div className="lg:sticky lg:top-24">
             <div className="relative overflow-hidden aspect-[16/9]">
-              <img
-                src={DETAIL_IMAGE}
-                alt="Craftsman hand-planing a custom walnut TV unit in the workshop"
-                width={1364}
-                height={768}
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-              />
+              <picture>
+                <source type="image/avif" srcSet={`${DETAIL_BASE}.avif`} />
+                <source type="image/webp" srcSet={`${DETAIL_BASE}.webp`} />
+                <img
+                  src={`${DETAIL_BASE}.jpg`}
+                  alt="Craftsman hand-planing a custom walnut TV unit in the workshop"
+                  width={1364}
+                  height={768}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div className="absolute inset-0 ring-1 ring-inset ring-black/5" />
             </div>
             <p className="mt-4 text-xs text-muted-foreground tracking-wide uppercase font-medium">

@@ -20,7 +20,7 @@ function Stat({ value, label }: { value: string; label: string }) {
 }
 
 // Craftsmanship close-up: dovetail joinery on oak drawer — self-hosted
-const WORKSHOP_IMAGE = '/images/about_workshop.jpg';
+const WORKSHOP_BASE = '/images/about_workshop';
 
 export default function AboutSection() {
   const { t } = useLanguage();
@@ -86,15 +86,19 @@ export default function AboutSection() {
           </div>
           <div className="space-y-10">
             <div className="fade-in-item relative overflow-hidden aspect-square">
-              <img
-                src={WORKSHOP_IMAGE}
-                alt="Close-up of hand-cut dovetail joinery on an oak drawer — craftsmanship by Alexandru Burtea"
-                width={1248}
-                height={1248}
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-              />
+              <picture>
+                <source type="image/avif" srcSet={`${WORKSHOP_BASE}.avif`} />
+                <source type="image/webp" srcSet={`${WORKSHOP_BASE}.webp`} />
+                <img
+                  src={`${WORKSHOP_BASE}.jpg`}
+                  alt="Close-up of hand-cut dovetail joinery on an oak drawer — craftsmanship by Alexandru Burtea"
+                  width={1248}
+                  height={1248}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div className="absolute inset-0 ring-1 ring-inset ring-black/5" />
             </div>
             <div className="fade-in-item grid grid-cols-2 gap-px bg-border">

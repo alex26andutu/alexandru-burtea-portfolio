@@ -1,24 +1,39 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 
 // Featured hero: custom dining room with slat divider + built-in shelving — self-hosted
-const HERO_IMAGE = '/images/living_room_30.jpg';
-const HERO_IMAGE_SM = '/images/living_room_30.jpg';
+// Multiple formats (AVIF/WebP/JPG) + mobile variant for fastest LCP
+const HERO_BASE = '/images/living_room_30';
 
 export default function HeroSection() {
   const { t } = useLanguage();
   return (
     <section className="relative w-full h-screen min-h-[600px] max-h-[1000px] overflow-hidden">
-      {/* Image as <img> for proper priority + responsive loading */}
-      <img
-        src={HERO_IMAGE}
-        alt=""
-        aria-hidden="true"
-        width={1600}
-        height={1200}
-        decoding="async"
-        fetchPriority="high"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+      {/* <picture> with AVIF/WebP/JPG fallbacks + mobile srcset */}
+      <picture>
+        {/* AVIF — smallest, modern browsers (Chrome 85+, Safari 16+) */}
+        <source
+          type="image/avif"
+          srcSet={`${HERO_BASE}-800.avif 800w, ${HERO_BASE}.avif 1600w`}
+          sizes="100vw"
+        />
+        {/* WebP — wider browser support */}
+        <source
+          type="image/webp"
+          srcSet={`${HERO_BASE}-800.webp 800w, ${HERO_BASE}.webp 1600w`}
+          sizes="100vw"
+        />
+        {/* JPG fallback — universal */}
+        <img
+          src={`${HERO_BASE}.jpg`}
+          alt=""
+          aria-hidden="true"
+          width={1600}
+          height={1200}
+          decoding="async"
+          fetchPriority="high"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      </picture>
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30" />
       <div className="absolute bottom-0 left-0 right-0 container pb-16 md:pb-24">
         <div className="max-w-2xl">

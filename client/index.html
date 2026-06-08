@@ -131,6 +131,14 @@
     }
     </script>
 
+    <!-- Preload hero image (AVIF) for fastest LCP — browsers ignore if AVIF unsupported -->
+    <link rel="preload" as="image" type="image/avif"
+          imagesrcset="/images/living_room_30-800.avif 800w, /images/living_room_30.avif 1600w"
+          imagesizes="100vw" />
+    <link rel="preload" as="image" type="image/webp"
+          imagesrcset="/images/living_room_30-800.webp 800w, /images/living_room_30.webp 1600w"
+          imagesizes="100vw" />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
