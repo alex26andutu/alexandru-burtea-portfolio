@@ -167,16 +167,20 @@ export default function Lightbox({
         className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <img
-          src={photo.src}
-          alt={photo.alt}
-          className={`lightbox-img max-w-full max-h-[85vh] object-contain ${
-            zoomed ? 'zoomed' : ''
-          }`}
-          style={{ boxShadow: '0 25px 60px rgba(0,0,0,0.5)' }}
-          onClick={() => setZoomed((z) => !z)}
-          draggable={false}
-        />
+        <picture>
+          <source srcSet={photo.src.replace(/\.jpg$/, '.avif')} type="image/avif" />
+          <source srcSet={photo.src.replace(/\.jpg$/, '.webp')} type="image/webp" />
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            className={`lightbox-img max-w-full max-h-[85vh] object-contain ${
+              zoomed ? 'zoomed' : ''
+            }`}
+            style={{ boxShadow: '0 25px 60px rgba(0,0,0,0.5)' }}
+            onClick={() => setZoomed((z) => !z)}
+            draggable={false}
+          />
+        </picture>
       </div>
 
       {/* Prev button */}

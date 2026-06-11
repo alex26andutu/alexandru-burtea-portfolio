@@ -261,27 +261,39 @@ export default function PortfolioSection() {
             >
               {/* Leaving slide (cross-fade out) */}
               {leavingPhoto && (
-                <img
+                <picture
                   key={`leaving-${activeCategory}-${leavingPhoto.id}`}
-                  src={leavingPhoto.src}
-                  alt=""
-                  aria-hidden="true"
                   className="showcase-slide leaving"
-                  draggable={false}
-                  decoding="async"
-                />
+                  aria-hidden="true"
+                >
+                  <source srcSet={leavingPhoto.src.replace(/\.jpg$/, '.avif')} type="image/avif" />
+                  <source srcSet={leavingPhoto.src.replace(/\.jpg$/, '.webp')} type="image/webp" />
+                  <img
+                    src={leavingPhoto.src}
+                    alt=""
+                    className="showcase-picture-img"
+                    draggable={false}
+                    decoding="async"
+                  />
+                </picture>
               )}
 
               {/* Active slide */}
               {activePhoto && (
-                <img
+                <picture
                   key={`active-${activeCategory}-${activePhoto.id}`}
-                  src={activePhoto.src}
-                  alt={activePhoto.alt}
                   className="showcase-slide active"
-                  draggable={false}
-                  decoding="async"
-                />
+                >
+                  <source srcSet={activePhoto.src.replace(/\.jpg$/, '.avif')} type="image/avif" />
+                  <source srcSet={activePhoto.src.replace(/\.jpg$/, '.webp')} type="image/webp" />
+                  <img
+                    src={activePhoto.src}
+                    alt={activePhoto.alt}
+                    className="showcase-picture-img"
+                    draggable={false}
+                    decoding="async"
+                  />
+                </picture>
               )}
 
               {/* Counter top-left */}
