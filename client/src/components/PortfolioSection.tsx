@@ -1,12 +1,10 @@
 /*
  * DESIGN SYSTEM: Warm Editorial Craft
- * Portfolio: Sidebar (categories) + Auto-rotating Showcase (slideshow).
+ * Portfolio: Single full-width cinematic showcase — no category sidebar.
  *
  * Behavior:
- *  - Default category = first non-empty (no "All" option).
- *  - Photos per category are shuffled once on category-change, then advance
- *    sequentially through the shuffled order — feels random without being
- *    confusing (no instant repeat).
+ *  - All photos shuffled once per page load, advance sequentially through
+ *    the shuffled order — feels random without instant repeats.
  *  - Auto-advance every SLIDE_DURATION ms with a top-aligned progress bar.
  *  - Pause on hover, on focus, when tab is hidden, when reduced-motion is on,
  *    and via an explicit pause button (top-right).
@@ -24,7 +22,7 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
 } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { photos, type PhotoCategory, categoryOrder } from '@/lib/photos';
+import { photos } from '@/lib/photos';
 import Lightbox from './Lightbox';
 
 const SLIDE_DURATION_MS = 5000;
@@ -40,30 +38,11 @@ function shuffle<T>(arr: readonly T[]): T[] {
   return a;
 }
 
+// Shuffle once per page load
+const shuffledPhotos = shuffle(photos);
+
 export default function PortfolioSection() {
   const { t } = useLanguage();
-
-  // ── Counts + active categories ────────────────────────────────────────
-  const countsByCategory = useMemo(() => {
-    const counts: Partial<Record<PhotoCategory, number>> = {};
-    for (const p of photos) counts[p.category] = (counts[p.category] ?? 0) + 1;
-    return counts;
-  }, []);
-
-  const activeCategories = useMemo(
-    () => categoryOrder.filter((cat) => (countsByCategory[cat] ?? 0) > 0),
-    [countsByCategory]
-  );
-
-  const [activeCategory, setActiveCategory] = useState<PhotoCategory>(
-    activeCategories[0] ?? 'kitchen'
-  );
-
-  // ── Photos for current category, shuffled once per category change ────
-  const shuffledPhotos = useMemo(
-    () => shuffle(photos.filter((p) => p.category === activeCategory)),
-    [activeCategory]
-  );
 
   // ── Carousel state ────────────────────────────────────────────────────
   const [activeIdx, setActiveIdx] = useState(0);
@@ -74,13 +53,6 @@ export default function PortfolioSection() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const leavingTimerRef = useRef<number | null>(null);
-
-  // Reset to first slide on category change
-  useEffect(() => {
-    setActiveIdx(0);
-    setLeavingIdx(null);
-    if (leavingTimerRef.current) window.clearTimeout(leavingTimerRef.current);
-  }, [activeCategory]);
 
   const goTo = useCallback(
     (newIdx: number) => {
@@ -97,14 +69,12 @@ export default function PortfolioSection() {
   );
 
   const goNext = useCallback(() => {
-    if (shuffledPhotos.length === 0) return;
     goTo((activeIdx + 1) % shuffledPhotos.length);
-  }, [activeIdx, shuffledPhotos.length, goTo]);
+  }, [activeIdx, goTo]);
 
   const goPrev = useCallback(() => {
-    if (shuffledPhotos.length === 0) return;
     goTo((activeIdx - 1 + shuffledPhotos.length) % shuffledPhotos.length);
-  }, [activeIdx, shuffledPhotos.length, goTo]);
+  }, [activeIdx, goTo]);
 
   // ── Auto-advance timer ────────────────────────────────────────────────
   const isPaused = hoverPaused || manuallyPaused || tabHidden;
@@ -120,7 +90,7 @@ export default function PortfolioSection() {
 
     const id = window.setTimeout(goNext, SLIDE_DURATION_MS);
     return () => window.clearTimeout(id);
-  }, [activeIdx, shuffledPhotos.length, isPaused, goNext]);
+  }, [activeIdx, isPaused, goNext]);
 
   // ── Pause when tab hidden ─────────────────────────────────────────────
   useEffect(() => {
@@ -130,7 +100,7 @@ export default function PortfolioSection() {
     return () => document.removeEventListener('visibilitychange', onVis);
   }, []);
 
-  // ── Preload neighbouring images ───────────────────────────────────────
+  // ── Preload next image ────────────────────────────────────────────────
   useEffect(() => {
     if (shuffledPhotos.length <= 1) return;
     const nextSrc =
@@ -139,7 +109,7 @@ export default function PortfolioSection() {
       const img = new Image();
       img.src = nextSrc;
     }
-  }, [activeIdx, shuffledPhotos]);
+  }, [activeIdx]);
 
   // ── Clean up leaving timer on unmount ─────────────────────────────────
   useEffect(
@@ -169,7 +139,6 @@ export default function PortfolioSection() {
     [goNext, goPrev, activeIdx]
   );
 
-  // Manual prev/next reset the timer (re-render triggers timeout above)
   const handlePrev = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
@@ -189,9 +158,7 @@ export default function PortfolioSection() {
   const leavingPhoto = leavingIdx !== null ? shuffledPhotos[leavingIdx] : null;
   const showDots = shuffledPhotos.length > 1 && shuffledPhotos.length <= 10;
 
-  // Progress bar restarts via `key` (React unmounts/remounts → animation
-  // starts from 0). Paused state freezes the animation via CSS class.
-  const progressKey = `${activeCategory}-${activeIdx}`;
+  const progressKey = `${activeIdx}`;
 
   return (
     <section id="portfolio" className="py-24 md:py-36 bg-secondary">
@@ -202,239 +169,201 @@ export default function PortfolioSection() {
             {t.portfolio.heading}
           </span>
           <p className="mt-4 text-muted-foreground text-base max-w-xl leading-relaxed">
-            {t.portfolio.subheading}
+            A selection of recent custom furniture projects
           </p>
         </div>
 
-        {/* Sidebar + showcase */}
-        <div className="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-8 lg:gap-12">
-          {/* Sidebar — div, not <aside>: ARIA "tablist" role isn't allowed on
-              the aside landmark element (axe aria-allowed-role) */}
+        {/* Full-width showcase */}
+        <div
+          id="showcase-panel"
+          role="region"
+          aria-label="Portfolio showcase"
+          className="showcase"
+        >
           <div
-            className="cat-sidebar"
-            role="tablist"
-            aria-label="Project categories"
+            ref={stageRef}
+            className="showcase-stage"
+            tabIndex={0}
+            role="button"
+            aria-label={`${t.portfolio.view_full} — project ${activeIdx + 1} of ${shuffledPhotos.length}`}
+            onMouseEnter={() => setHoverPaused(true)}
+            onMouseLeave={() => setHoverPaused(false)}
+            onFocus={() => setHoverPaused(true)}
+            onBlur={() => setHoverPaused(false)}
+            onClick={() => setLightboxIndex(activeIdx)}
+            onKeyDown={onStageKeyDown}
           >
-            {activeCategories.map((cat) => {
-              const label = t.portfolio.categories[cat] || cat;
-              const isActive = activeCategory === cat;
-              const count = countsByCategory[cat] ?? 0;
-              return (
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  aria-controls="showcase-panel"
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`cat-item ${isActive ? 'active' : ''}`}
-                >
-                  <span className="flex-1">{label}</span>
-                  <span className="cat-count" aria-label={`${count} photos`}>
-                    {String(count).padStart(2, '0')}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+            {/* Leaving slide (cross-fade out) */}
+            {leavingPhoto && (
+              <picture
+                key={`leaving-${leavingPhoto.id}`}
+                className="showcase-slide leaving"
+                aria-hidden="true"
+              >
+                <source srcSet={leavingPhoto.src.replace(/\.jpg$/, '.avif')} type="image/avif" />
+                <source srcSet={leavingPhoto.src.replace(/\.jpg$/, '.webp')} type="image/webp" />
+                <img
+                  src={leavingPhoto.src}
+                  alt=""
+                  className="showcase-picture-img"
+                  draggable={false}
+                  decoding="async"
+                />
+              </picture>
+            )}
 
-          {/* Showcase */}
-          <div
-            id="showcase-panel"
-            role="tabpanel"
-            aria-label={t.portfolio.categories[activeCategory]}
-            className="showcase"
-          >
-            <div
-              ref={stageRef}
-              className="showcase-stage"
-              tabIndex={0}
-              role="button"
-              aria-label={`${t.portfolio.view_full} — ${
-                t.portfolio.categories[activeCategory]
-              } ${activeIdx + 1} of ${shuffledPhotos.length}`}
-              onMouseEnter={() => setHoverPaused(true)}
-              onMouseLeave={() => setHoverPaused(false)}
-              onFocus={() => setHoverPaused(true)}
-              onBlur={() => setHoverPaused(false)}
-              onClick={() => setLightboxIndex(activeIdx)}
-              onKeyDown={onStageKeyDown}
-            >
-              {/* Leaving slide (cross-fade out) */}
-              {leavingPhoto && (
-                <picture
-                  key={`leaving-${activeCategory}-${leavingPhoto.id}`}
-                  className="showcase-slide leaving"
-                  aria-hidden="true"
-                >
-                  <source srcSet={leavingPhoto.src.replace(/\.jpg$/, '.avif')} type="image/avif" />
-                  <source srcSet={leavingPhoto.src.replace(/\.jpg$/, '.webp')} type="image/webp" />
-                  <img
-                    src={leavingPhoto.src}
-                    alt=""
-                    className="showcase-picture-img"
-                    draggable={false}
-                    decoding="async"
-                  />
-                </picture>
-              )}
+            {/* Active slide */}
+            {activePhoto && (
+              <picture
+                key={`active-${activePhoto.id}`}
+                className="showcase-slide active"
+              >
+                <source srcSet={activePhoto.src.replace(/\.jpg$/, '.avif')} type="image/avif" />
+                <source srcSet={activePhoto.src.replace(/\.jpg$/, '.webp')} type="image/webp" />
+                <img
+                  src={activePhoto.src}
+                  alt={activePhoto.alt}
+                  className="showcase-picture-img"
+                  draggable={false}
+                  decoding="async"
+                />
+              </picture>
+            )}
 
-              {/* Active slide */}
-              {activePhoto && (
-                <picture
-                  key={`active-${activeCategory}-${activePhoto.id}`}
-                  className="showcase-slide active"
-                >
-                  <source srcSet={activePhoto.src.replace(/\.jpg$/, '.avif')} type="image/avif" />
-                  <source srcSet={activePhoto.src.replace(/\.jpg$/, '.webp')} type="image/webp" />
-                  <img
-                    src={activePhoto.src}
-                    alt={activePhoto.alt}
-                    className="showcase-picture-img"
-                    draggable={false}
-                    decoding="async"
-                  />
-                </picture>
-              )}
-
-              {/* Counter top-left */}
-              <div className="showcase-counter">
-                {String(activeIdx + 1).padStart(2, '0')}
-                <span className="showcase-counter-total">
-                  / {String(shuffledPhotos.length).padStart(2, '0')}
-                </span>
-              </div>
-
-              {/* Pause / Play toggle */}
-              {shuffledPhotos.length > 1 && (
-                <button
-                  type="button"
-                  className="showcase-pause"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setManuallyPaused((p) => !p);
-                  }}
-                  aria-label={
-                    manuallyPaused ? t.portfolio.play : t.portfolio.pause
-                  }
-                  title={
-                    manuallyPaused ? t.portfolio.play : t.portfolio.pause
-                  }
-                >
-                  {manuallyPaused ? (
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  ) : (
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <rect x="6" y="5" width="4" height="14" rx="1" />
-                      <rect x="14" y="5" width="4" height="14" rx="1" />
-                    </svg>
-                  )}
-                </button>
-              )}
-
-              {/* Prev / Next */}
-              {shuffledPhotos.length > 1 && (
-                <>
-                  <button
-                    type="button"
-                    className="showcase-nav showcase-nav-prev"
-                    onClick={handlePrev}
-                    aria-label="Previous photo"
-                  >
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M15 18l-6-6 6-6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    className="showcase-nav showcase-nav-next"
-                    onClick={handleNext}
-                    aria-label="Next photo"
-                  >
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M9 18l6-6-6-6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </>
-              )}
-
-              {/* Progress bar */}
-              {shuffledPhotos.length > 1 && (
-                <div className="showcase-progress-track">
-                  <div
-                    key={progressKey}
-                    className={`showcase-progress-fill ${
-                      isPaused ? 'paused' : ''
-                    }`}
-                    style={{ animationDuration: `${SLIDE_DURATION_MS}ms` }}
-                    aria-hidden="true"
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Meta bar below stage */}
-            <div className="showcase-meta">
-              <span className="showcase-cat-name">
-                {t.portfolio.categories[activeCategory]}
+            {/* Counter top-left */}
+            <div className="showcase-counter">
+              {String(activeIdx + 1).padStart(2, '0')}
+              <span className="showcase-counter-total">
+                / {String(shuffledPhotos.length).padStart(2, '0')}
               </span>
-              <span className="showcase-hint">{t.portfolio.view_full}</span>
             </div>
 
-            {/* Dot indicator — only for ≤ 10 photos */}
-            {showDots && (
-              <div className="showcase-dots" role="group" aria-label="Slide indicators">
-                {shuffledPhotos.map((p, i) => (
-                  <button
-                    type="button"
-                    key={p.id}
-                    onClick={() => goTo(i)}
-                    className={`showcase-dot ${i === activeIdx ? 'active' : ''}`}
-                    aria-label={`Go to slide ${i + 1}`}
-                    aria-current={i === activeIdx}
-                  />
-                ))}
+            {/* Pause / Play toggle */}
+            {shuffledPhotos.length > 1 && (
+              <button
+                type="button"
+                className="showcase-pause"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setManuallyPaused((p) => !p);
+                }}
+                aria-label={
+                  manuallyPaused ? t.portfolio.play : t.portfolio.pause
+                }
+                title={
+                  manuallyPaused ? t.portfolio.play : t.portfolio.pause
+                }
+              >
+                {manuallyPaused ? (
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                ) : (
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <rect x="6" y="5" width="4" height="14" rx="1" />
+                    <rect x="14" y="5" width="4" height="14" rx="1" />
+                  </svg>
+                )}
+              </button>
+            )}
+
+            {/* Prev / Next */}
+            {shuffledPhotos.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  className="showcase-nav showcase-nav-prev"
+                  onClick={handlePrev}
+                  aria-label="Previous photo"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M15 18l-6-6 6-6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  className="showcase-nav showcase-nav-next"
+                  onClick={handleNext}
+                  aria-label="Next photo"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M9 18l6-6-6-6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </>
+            )}
+
+            {/* Progress bar */}
+            {shuffledPhotos.length > 1 && (
+              <div className="showcase-progress-track">
+                <div
+                  key={progressKey}
+                  className={`showcase-progress-fill ${
+                    isPaused ? 'paused' : ''
+                  }`}
+                  style={{ animationDuration: `${SLIDE_DURATION_MS}ms` }}
+                  aria-hidden="true"
+                />
               </div>
             )}
           </div>
+
+          {/* Hint below stage */}
+          <div className="showcase-meta">
+            <span className="showcase-hint">{t.portfolio.view_full}</span>
+          </div>
+
+          {/* Dot indicator — only for ≤ 10 photos */}
+          {showDots && (
+            <div className="showcase-dots" role="group" aria-label="Slide indicators">
+              {shuffledPhotos.map((p, i) => (
+                <button
+                  type="button"
+                  key={p.id}
+                  onClick={() => goTo(i)}
+                  className={`showcase-dot ${i === activeIdx ? 'active' : ''}`}
+                  aria-label={`Go to slide ${i + 1}`}
+                  aria-current={i === activeIdx}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
