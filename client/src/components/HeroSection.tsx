@@ -2,7 +2,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 // Featured hero: custom dining room with slat divider + built-in shelving — self-hosted
 // Multiple formats (AVIF/WebP/JPG) + mobile variant for fastest LCP
-const HERO_BASE = '/images/living_room_30';
+const HERO_BASE = '/images/hero_main';
 
 export default function HeroSection() {
   const { t } = useLanguage();
