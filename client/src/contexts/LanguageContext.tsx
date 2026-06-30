@@ -45,6 +45,8 @@ interface Translations {
     p1: string;
     p2: string;
     p3: string;
+    p4: string;
+    p5: string;
     stats: { value: string; label: string }[];
   };
   portfolio: {
@@ -111,9 +113,11 @@ const translations: Record<Language, Translations> = {
     },
     about: {
       heading: 'About Me',
-      p1: 'I am Alexandru Burtea, a furniture designer and craftsman with over 10 years of hands-on experience in custom furniture production. Based in Iași, Romania, I am currently seeking a long-term position in the Netherlands, where I look forward to contributing my skills to a professional workshop environment.',
-      p2: 'For the past 4 years, I have been running my own workshop as an independent entrepreneur, managing projects from initial concept through to final installation. My work spans kitchens, living rooms, bedrooms, bathrooms, hallways, dressing rooms, and office spaces — always tailored to the client\'s vision and space.',
-      p3: 'I use SketchUp for 3D design and project visualization, allowing clients to see realistic previews using actual materials before production begins. My approach combines technical precision with a strong sense of aesthetics, ensuring every piece is both functional and beautiful.',
+      p1: 'My name is Alexandru Burtea, and I am a furniture designer and craftsman with more than 10 years of experience in custom furniture production. Based in Iași, Romania, I specialize in designing and manufacturing high-quality custom furniture for residential and commercial spaces.',
+      p2: 'I create kitchens, living rooms, bedrooms, bathrooms, dressing rooms, hallways, and office furniture, managing projects from design and planning to production and installation. My goal is to deliver functional, durable, and visually appealing furniture tailored to each client\'s needs.',
+      p3: 'Using SketchUp, I provide detailed 3D designs and realistic visualizations, allowing clients to see their project before production begins. This helps ensure accuracy, transparency, and confidence throughout the process.',
+      p4: 'I offer custom-made kitchens and furniture for Dutch clients at highly competitive prices while maintaining a high standard of craftsmanship and attention to detail. I am currently looking to collaborate with more clients, architects, interior designers, and contractors on a project basis.',
+      p5: 'My work combines technical precision, practical experience, and a passion for design. Every project is approached with professionalism, reliability, and a commitment to delivering excellent results.',
       stats: [
         { value: '10+', label: 'Years of Experience' },
         { value: '4', label: 'Years as Entrepreneur' },
@@ -222,9 +226,11 @@ const translations: Record<Language, Translations> = {
     },
     about: {
       heading: 'Over mij',
-      p1: 'Ik ben Alexandru Burtea, een meubelontwerper en vakman met meer dan 10 jaar praktijkervaring in de productie van maatwerk meubilair. Ik ben gevestigd in Iași, Roemenië, en ben momenteel op zoek naar een vaste functie in Nederland, waar ik mijn vaardigheden wil inzetten in een professionele werkplaatsomgeving.',
-      p2: 'De afgelopen 4 jaar heb ik mijn eigen werkplaats gerund als zelfstandig ondernemer, waarbij ik projecten begeleid van het eerste concept tot en met de uiteindelijke installatie. Mijn werk omvat keukens, woonkamers, slaapkamers, badkamers, gangen, kleedkamers en kantoorruimtes — altijd op maat gemaakt naar de wensen van de klant.',
-      p3: 'Ik gebruik SketchUp voor 3D-ontwerp en projectvisualisatie, waardoor klanten realistische previews kunnen zien met echte materialen voordat de productie begint. Mijn aanpak combineert technische precisie met een sterk gevoel voor esthetiek, zodat elk meubel zowel functioneel als mooi is.',
+      p1: 'Mijn naam is Alexandru Burtea en ik ben meubelontwerper en vakman met meer dan 10 jaar ervaring in de productie van maatwerk meubilair. Gevestigd in Iași, Roemenië, ben ik gespecialiseerd in het ontwerpen en vervaardigen van hoogwaardig maatwerkmeubilair voor woon- en bedrijfsruimtes.',
+      p2: 'Ik maak keukens, woonkamers, slaapkamers, badkamers, kleedkamers, gangen en kantoormeubilair, en begeleid projecten van ontwerp en planning tot productie en installatie. Mijn doel is functioneel, duurzaam en visueel aantrekkelijk meubilair te leveren, op maat van elke klant.',
+      p3: 'Met SketchUp lever ik gedetailleerde 3D-ontwerpen en realistische visualisaties, zodat klanten hun project kunnen zien voordat de productie begint. Dit zorgt voor nauwkeurigheid, transparantie en vertrouwen tijdens het hele proces.',
+      p4: 'Ik bied op maat gemaakte keukens en meubilair voor Nederlandse klanten tegen zeer concurrerende prijzen, met behoud van een hoge standaard van vakmanschap en oog voor detail. Ik ben momenteel op zoek naar samenwerking met meer klanten, architecten, interieurontwerpers en aannemers op projectbasis.',
+      p5: 'Mijn werk combineert technische precisie, praktijkervaring en passie voor design. Elk project wordt benaderd met professionaliteit, betrouwbaarheid en een streven naar uitstekende resultaten.',
       stats: [
         { value: '10+', label: 'Jaar ervaring' },
         { value: '4', label: 'Jaar als ondernemer' },

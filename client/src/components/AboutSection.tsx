@@ -68,6 +68,8 @@ export default function AboutSection() {
               <p className="fade-in-item">{t.about.p1}</p>
               <p className="fade-in-item">{t.about.p2}</p>
               <p className="fade-in-item">{t.about.p3}</p>
+              <p className="fade-in-item">{t.about.p4}</p>
+              <p className="fade-in-item">{t.about.p5}</p>
             </div>
             <div className="mt-10 fade-in-item">
               <p className="section-label mb-5">{t.skills.heading}</p>
