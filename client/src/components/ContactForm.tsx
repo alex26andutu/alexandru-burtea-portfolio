@@ -57,7 +57,7 @@ export default function ContactForm() {
   }
 
   const inputClass =
-    'w-full bg-transparent border-0 border-b border-on-deep/25 px-0 py-3 text-on-deep text-sm placeholder:text-on-deep/40 focus:outline-none focus:border-primary transition-colors';
+    'w-full bg-transparent border-0 border-b border-on-deep/25 px-0 py-3 text-on-deep text-sm placeholder:text-on-deep/60 focus:outline-none focus:border-primary transition-colors';
 
   return (
     <form

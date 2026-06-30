@@ -44,7 +44,7 @@ export default function Navbar() {
   // when scrolled we adopt theme tokens so dark mode works.
   const surfaceClass = scrolled
     ? 'bg-background/90 backdrop-blur-md shadow-[0_1px_0_var(--border)]'
-    : 'bg-gradient-to-b from-black/40 via-black/15 to-transparent';
+    : 'bg-gradient-to-b from-black/60 via-black/30 to-transparent';
 
   const logoClass = scrolled ? 'text-foreground' : 'text-white';
   const linkClass = scrolled
@@ -53,7 +53,7 @@ export default function Navbar() {
   const langBorderClass = scrolled ? 'border-border' : 'border-white/30';
   const langInactiveClass = scrolled
     ? 'text-muted-foreground hover:bg-muted'
-    : 'text-white/70 hover:text-white';
+    : 'text-white/85 hover:text-white';
   const iconBtnClass = scrolled
     ? 'text-foreground hover:text-primary'
     : 'text-white hover:text-white/80';

@@ -15,9 +15,9 @@ export default function Footer() {
           <div className="flex items-center gap-3">
             <span className="font-display text-on-deep/85 text-sm">Alexandru Burtea</span>
             <span className="text-on-deep/25" aria-hidden="true">·</span>
-            <span className="text-on-deep/45 text-xs">{t.footer.tagline}</span>
+            <span className="text-on-deep/70 text-xs">{t.footer.tagline}</span>
           </div>
-          <p className="text-on-deep/35 text-xs">{t.footer.text}</p>
+          <p className="text-on-deep/70 text-xs">{t.footer.text}</p>
         </div>
       </div>
     </footer>

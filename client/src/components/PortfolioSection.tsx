@@ -208,8 +208,9 @@ export default function PortfolioSection() {
 
         {/* Sidebar + showcase */}
         <div className="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-8 lg:gap-12">
-          {/* Sidebar */}
-          <aside
+          {/* Sidebar — div, not <aside>: ARIA "tablist" role isn't allowed on
+              the aside landmark element (axe aria-allowed-role) */}
+          <div
             className="cat-sidebar"
             role="tablist"
             aria-label="Project categories"
@@ -235,7 +236,7 @@ export default function PortfolioSection() {
                 </button>
               );
             })}
-          </aside>
+          </div>
 
           {/* Showcase */}
           <div

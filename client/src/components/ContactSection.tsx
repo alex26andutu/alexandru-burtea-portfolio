@@ -78,7 +78,7 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[10px] text-on-deep/45 tracking-widest uppercase mb-0.5">{t.contact.email_label}</p>
+                  <p className="text-[10px] text-on-deep/65 tracking-widest uppercase mb-0.5">{t.contact.email_label}</p>
                   <span className="text-on-deep/85 group-hover:text-on-deep transition-colors text-sm break-all">
                     {EMAIL}
                   </span>
@@ -99,11 +99,11 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[10px] text-on-deep/45 tracking-widest uppercase mb-0.5">{t.contact.whatsapp_label}</p>
+                  <p className="text-[10px] text-on-deep/65 tracking-widest uppercase mb-0.5">{t.contact.whatsapp_label}</p>
                   <span className="text-on-deep/85 group-hover:text-on-deep transition-colors text-sm">
                     {WHATSAPP_DISPLAY}
                   </span>
-                  <span className="block text-[11px] text-on-deep/45 mt-0.5">
+                  <span className="block text-[11px] text-on-deep/65 mt-0.5">
                     {t.contact.whatsapp_note}
                   </span>
                 </div>
@@ -133,7 +133,7 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[10px] text-on-deep/45 tracking-widest uppercase mb-0.5">{t.contact.linkedin_label}</p>
+                  <p className="text-[10px] text-on-deep/65 tracking-widest uppercase mb-0.5">{t.contact.linkedin_label}</p>
                   <span className="text-on-deep/85 group-hover:text-on-deep transition-colors text-sm">
                     {LINKEDIN_DISPLAY}
                   </span>
