@@ -154,7 +154,7 @@ const translations: Record<Language, Translations> = {
         {
           number: '02',
           title: '3D Design',
-          description: 'Using SketchUp, I create a detailed 3D model with real materials so you can visualize the final result before production begins.',
+          description: 'I create a detailed 3D model with real materials so you can visualize the final result before production begins.',
         },
         {
           number: '03',
@@ -173,7 +173,7 @@ const translations: Record<Language, Translations> = {
       items: [
         'Custom cabinet making & furniture production',
         'Kitchen and wardrobe design & assembly',
-        '3D design with SketchUp',
+        '3D design',
         'Reading and working from technical drawings',
         'MDF, laminated boards, plywood & solid wood',
         'Professional woodworking machines & hand tools',
@@ -267,7 +267,7 @@ const translations: Record<Language, Translations> = {
         {
           number: '02',
           title: '3D-ontwerp',
-          description: 'Met SketchUp maak ik een gedetailleerd 3D-model met echte materialen, zodat u het eindresultaat kunt visualiseren voordat de productie begint.',
+          description: 'Ik maak een gedetailleerd 3D-model met echte materialen, zodat u het eindresultaat kunt visualiseren voordat de productie begint.',
         },
         {
           number: '03',
@@ -286,7 +286,7 @@ const translations: Record<Language, Translations> = {
       items: [
         'Maatwerk kast- en meubelfabricage',
         'Keuken- en kastontwerp & montage',
-        '3D-ontwerp met SketchUp',
+        '3D-ontwerp',
         'Lezen en werken vanuit technische tekeningen',
         'MDF, gelamineerde platen, multiplex & massief hout',
         'Professionele houtbewerkingsmachines & handgereedschap',
