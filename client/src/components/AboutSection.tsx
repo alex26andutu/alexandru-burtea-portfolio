@@ -60,11 +60,11 @@ export default function AboutSection() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <div>
-            <h2 className="fade-in-item font-display text-4xl md:text-5xl lg:text-6xl font-light text-foreground leading-tight mb-10">
+            <h2 className="fade-in-item font-display text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground leading-tight mb-10">
               Crafting spaces<br />
               <strong><em>with purpose.</em></strong>
             </h2>
-            <div className="space-y-5 text-foreground/80 leading-relaxed text-base">
+            <div className="space-y-5 text-foreground/80 leading-relaxed text-base font-bold italic">
               <p className="fade-in-item">{t.about.p1}</p>
               <p className="fade-in-item">{t.about.p2}</p>
               <p className="fade-in-item">{t.about.p3}</p>
