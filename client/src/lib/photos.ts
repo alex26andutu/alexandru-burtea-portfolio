@@ -37,7 +37,7 @@ type Source = {
 };
 
 const sources: Source[] = [
-  // Kitchen (18)
+  // Kitchen (17)
   { id: 'kitchen_01', file: 'kitchen_01.jpg', category: 'kitchen' },
   { id: 'kitchen_02', file: 'kitchen_02.jpg', category: 'kitchen' },
   { id: 'kitchen_03', file: 'kitchen_03.jpg', category: 'kitchen' },
@@ -55,9 +55,8 @@ const sources: Source[] = [
   { id: 'kitchen_15', file: 'kitchen_15.jpg', category: 'kitchen' },
   { id: 'kitchen_16', file: 'kitchen_16.jpg', category: 'kitchen' },
   { id: 'kitchen_17', file: 'kitchen_17.jpg', category: 'kitchen' },
-  { id: 'kitchen_18', file: 'kitchen_18.jpg', category: 'kitchen' },
 
-  // Living room (21)
+  // Living room (19)
   { id: 'living_room_01', file: 'living_room_01.jpg', category: 'living_room' },
   { id: 'living_room_02', file: 'living_room_02.jpg', category: 'living_room' },
   { id: 'living_room_03', file: 'living_room_03.jpg', category: 'living_room' },
@@ -77,8 +76,6 @@ const sources: Source[] = [
   { id: 'living_room_17', file: 'living_room_17.jpg', category: 'living_room' },
   { id: 'living_room_18', file: 'living_room_18.jpg', category: 'living_room' },
   { id: 'living_room_19', file: 'living_room_19.jpg', category: 'living_room' },
-  { id: 'living_room_20', file: 'living_room_20.jpg', category: 'living_room' },
-  { id: 'living_room_21', file: 'living_room_21.jpg', category: 'living_room' },
 
   // Bedroom wardrobe (13)
   { id: 'bedroom_wardrobe_01', file: 'bedroom_wardrobe_01.jpg', category: 'bedroom_wardrobe' },
