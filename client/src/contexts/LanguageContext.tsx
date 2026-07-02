@@ -113,11 +113,11 @@ const translations: Record<Language, Translations> = {
     },
     about: {
       heading: 'About Me',
-      p1: 'My name is Alexandru Burtea, and I am a furniture designer and craftsman with more than 10 years of experience in custom furniture production. Based in Iași, Romania, I specialize in designing and manufacturing high-quality custom furniture for residential and commercial spaces.',
-      p2: 'I create kitchens, living rooms, bedrooms, bathrooms, dressing rooms, hallways, and office furniture, managing projects from design and planning to production and installation. My goal is to deliver functional, durable, and visually appealing furniture tailored to each client\'s needs.',
-      p3: 'Using SketchUp, I provide detailed 3D designs and realistic visualizations, allowing clients to see their project before production begins. This helps ensure accuracy, transparency, and confidence throughout the process.',
-      p4: 'I offer custom-made kitchens and furniture for Dutch clients at highly competitive prices while maintaining a high standard of craftsmanship and attention to detail. I am currently looking to collaborate with more clients, architects, interior designers, and contractors on a project basis.',
-      p5: 'My work combines technical precision, practical experience, and a passion for design. Every project is approached with professionalism, reliability, and a commitment to delivering excellent results.',
+      p1: 'My name is Alexandru Burtea, and I am a furniture designer and craftsman with more than a decade of experience in custom furniture production. I work on a project basis, designing and manufacturing high-quality custom furniture such as kitchens, living rooms, bedrooms, bathrooms, dressing rooms, hallways, and office furniture for residential and commercial spaces.',
+      p2: 'Mainly turn-key projects — planning, designing, production and installation — tailored to each client\'s needs.',
+      p3: 'To be trustworthy and transparent, I provide a detailed 3D design so clients can see their project before giving consent for production.',
+      p4: 'I have crafted furniture for private persons and companies in England, the Netherlands, Germany and Romania.',
+      p5: 'Due to the successful completion of several long-term projects, I can now accept new projects — preferably in the Netherlands, where I still have ongoing projects.',
       stats: [
         { value: '10+', label: 'Years of Experience' },
         { value: '4', label: 'Years as Entrepreneur' },
@@ -226,11 +226,11 @@ const translations: Record<Language, Translations> = {
     },
     about: {
       heading: 'Over mij',
-      p1: 'Mijn naam is Alexandru Burtea en ik ben meubelontwerper en vakman met meer dan 10 jaar ervaring in de productie van maatwerk meubilair. Gevestigd in Iași, Roemenië, ben ik gespecialiseerd in het ontwerpen en vervaardigen van hoogwaardig maatwerkmeubilair voor woon- en bedrijfsruimtes.',
-      p2: 'Ik maak keukens, woonkamers, slaapkamers, badkamers, kleedkamers, gangen en kantoormeubilair, en begeleid projecten van ontwerp en planning tot productie en installatie. Mijn doel is functioneel, duurzaam en visueel aantrekkelijk meubilair te leveren, op maat van elke klant.',
-      p3: 'Met SketchUp lever ik gedetailleerde 3D-ontwerpen en realistische visualisaties, zodat klanten hun project kunnen zien voordat de productie begint. Dit zorgt voor nauwkeurigheid, transparantie en vertrouwen tijdens het hele proces.',
-      p4: 'Ik bied op maat gemaakte keukens en meubilair voor Nederlandse klanten tegen zeer concurrerende prijzen, met behoud van een hoge standaard van vakmanschap en oog voor detail. Ik ben momenteel op zoek naar samenwerking met meer klanten, architecten, interieurontwerpers en aannemers op projectbasis.',
-      p5: 'Mijn werk combineert technische precisie, praktijkervaring en passie voor design. Elk project wordt benaderd met professionaliteit, betrouwbaarheid en een streven naar uitstekende resultaten.',
+      p1: 'Mijn naam is Alexandru Burtea en ik ben meubelontwerper en vakman met meer dan een decennium ervaring in de productie van maatwerkmeubilair. Ik werk op projectbasis en ontwerp en produceer hoogwaardig maatwerkmeubilair zoals keukens, woonkamers, slaapkamers, badkamers, kleedkamers, gangen en kantoormeubilair voor woon- en bedrijfsruimtes.',
+      p2: 'Voornamelijk sleutel-op-de-deur projecten — planning, ontwerp, productie en installatie — op maat van elke klant.',
+      p3: 'Om betrouwbaar en transparant te zijn, lever ik een gedetailleerd 3D-ontwerp zodat klanten hun project kunnen zien voordat zij toestemming geven voor de productie.',
+      p4: 'Ik heb meubilair vervaardigd voor particulieren en bedrijven in Engeland, Nederland, Duitsland en Roemenië.',
+      p5: 'Door de succesvolle afronding van meerdere langlopende projecten kan ik nu nieuwe projecten accepteren — bij voorkeur in Nederland, waar ik nog lopende projecten heb.',
       stats: [
         { value: '10+', label: 'Jaar ervaring' },
         { value: '4', label: 'Jaar als ondernemer' },

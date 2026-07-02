@@ -62,7 +62,7 @@ export default function AboutSection() {
           <div>
             <h2 className="fade-in-item font-display text-4xl md:text-5xl lg:text-6xl font-light text-foreground leading-tight mb-10">
               Crafting spaces<br />
-              <em>with purpose.</em>
+              <strong><em>with purpose.</em></strong>
             </h2>
             <div className="space-y-5 text-foreground/80 leading-relaxed text-base">
               <p className="fade-in-item">{t.about.p1}</p>
