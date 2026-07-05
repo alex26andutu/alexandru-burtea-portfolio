@@ -154,17 +154,17 @@ const translations: Record<Language, Translations> = {
         {
           number: '02',
           title: '3D Design',
-          description: 'I create a detailed 3D model with real materials so you can visualize the final result before production begins.',
+          description: 'Creating a detailed 3D model using the actual materials and finishes selected for your project, so you can visualize the final result before production begins.',
         },
         {
           number: '03',
           title: 'Production',
-          description: 'All furniture is crafted in my workshop using professional woodworking machines and hand tools. I work with MDF, laminated boards, plywood, and solid wood.',
+          description: 'All furniture is crafted in my workshop using professional woodworking machinery and hand tools. Working with MDF, laminated boards, plywood, and solid wood.',
         },
         {
           number: '04',
           title: 'Installation',
-          description: 'I handle on-site assembly and installation with precision, ensuring everything fits perfectly and meets the highest quality standards.',
+          description: 'On-site assembly and installation with precision, ensuring everything fits perfectly and meets the highest quality standards.',
         },
       ],
     },
@@ -267,17 +267,17 @@ const translations: Record<Language, Translations> = {
         {
           number: '02',
           title: '3D-ontwerp',
-          description: 'Ik maak een gedetailleerd 3D-model met echte materialen, zodat u het eindresultaat kunt visualiseren voordat de productie begint.',
+          description: 'Een gedetailleerd 3D-model op basis van de werkelijke materialen en afwerkingen voor uw project, zodat u het eindresultaat kunt visualiseren voordat de productie begint.',
         },
         {
           number: '03',
           title: 'Productie',
-          description: 'Alle meubels worden vervaardigd in mijn werkplaats met professionele houtbewerkingsmachines en handgereedschap. Ik werk met MDF, gelamineerde platen, multiplex en massief hout.',
+          description: 'Alle meubels worden vervaardigd in mijn werkplaats met professionele houtbewerkingsmachines en handgereedschap. Gewerkt met MDF, gelamineerde platen, multiplex en massief hout.',
         },
         {
           number: '04',
           title: 'Installatie',
-          description: 'Ik verzorg de montage en installatie op locatie met precisie, zodat alles perfect past en voldoet aan de hoogste kwaliteitsnormen.',
+          description: 'Montage en installatie op locatie met precisie, zodat alles perfect past en voldoet aan de hoogste kwaliteitsnormen.',
         },
       ],
     },
