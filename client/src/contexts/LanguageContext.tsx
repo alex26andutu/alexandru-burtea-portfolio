@@ -113,11 +113,11 @@ const translations: Record<Language, Translations> = {
     },
     about: {
       heading: 'About Me',
-      p1: 'My name is Alexandru Burtea, and I am a furniture designer and craftsman with more than a decade of experience in custom furniture production. I work on a project basis, designing and manufacturing high-quality custom furniture such as kitchens, living rooms, bedrooms, bathrooms, dressing rooms, hallways, and office furniture for residential and commercial spaces.',
-      p2: 'Mainly turn-key projects — planning, designing, production and installation — tailored to each client\'s needs.',
-      p3: 'To be trustworthy and transparent, I provide a detailed 3D design so clients can see their project before giving consent for production.',
-      p4: 'I have crafted furniture for private persons and companies in England, the Netherlands, Germany and Romania.',
-      p5: 'Due to the successful completion of several long-term projects, I can now accept new projects — preferably in the Netherlands, where I still have ongoing projects.',
+      p1: 'My name is Alexandru Burtea, a furniture designer and craftsman with more than a decade of experience in custom furniture production. I work on a project basis, designing and manufacturing high-quality custom furniture, including kitchens, living rooms, bedrooms, bathrooms, dressing rooms, hallways, and office furniture for both residential and commercial spaces.',
+      p2: 'I mainly undertake turnkey projects — planning, design, production, and installation — tailored to each client\'s needs.',
+      p3: 'To ensure transparency and build trust, I provide a detailed 3D design so clients can visualize their project before giving their approval for production.',
+      p4: 'I have crafted furniture for private clients and companies in England, the Netherlands, Germany, and Romania.',
+      p5: 'Having successfully completed several long-term projects, I am now available to take on new projects, preferably in the Netherlands, where I continue to have ongoing projects.',
       stats: [
         { value: '10+', label: 'Years of Experience' },
         { value: '4', label: 'Years as Entrepreneur' },
@@ -226,11 +226,11 @@ const translations: Record<Language, Translations> = {
     },
     about: {
       heading: 'Over mij',
-      p1: 'Mijn naam is Alexandru Burtea en ik ben meubelontwerper en vakman met meer dan een decennium ervaring in de productie van maatwerkmeubilair. Ik werk op projectbasis en ontwerp en produceer hoogwaardig maatwerkmeubilair zoals keukens, woonkamers, slaapkamers, badkamers, kleedkamers, gangen en kantoormeubilair voor woon- en bedrijfsruimtes.',
-      p2: 'Voornamelijk sleutel-op-de-deur projecten — planning, ontwerp, productie en installatie — op maat van elke klant.',
-      p3: 'Om betrouwbaar en transparant te zijn, lever ik een gedetailleerd 3D-ontwerp zodat klanten hun project kunnen zien voordat zij toestemming geven voor de productie.',
+      p1: 'Mijn naam is Alexandru Burtea, meubelontwerper en vakman met meer dan een decennium ervaring in de productie van maatwerkmeubilair. Ik werk op projectbasis en ontwerp en produceer hoogwaardig maatwerkmeubilair, waaronder keukens, woonkamers, slaapkamers, badkamers, kleedkamers, gangen en kantoormeubilair voor zowel woon- als bedrijfsruimtes.',
+      p2: 'Ik neem voornamelijk sleutel-op-de-deur projecten aan — planning, ontwerp, productie en installatie — op maat van elke klant.',
+      p3: 'Om transparantie te garanderen en vertrouwen op te bouwen, lever ik een gedetailleerd 3D-ontwerp zodat klanten hun project kunnen visualiseren voordat zij hun goedkeuring geven voor de productie.',
       p4: 'Ik heb meubilair vervaardigd voor particulieren en bedrijven in Engeland, Nederland, Duitsland en Roemenië.',
-      p5: 'Door de succesvolle afronding van meerdere langlopende projecten kan ik nu nieuwe projecten accepteren — bij voorkeur in Nederland, waar ik nog lopende projecten heb.',
+      p5: 'Na de succesvolle afronding van meerdere langlopende projecten ben ik nu beschikbaar voor nieuwe projecten, bij voorkeur in Nederland, waar ik nog steeds lopende projecten heb.',
       stats: [
         { value: '10+', label: 'Jaar ervaring' },
         { value: '4', label: 'Jaar als ondernemer' },
