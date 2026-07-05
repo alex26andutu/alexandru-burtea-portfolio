@@ -55,7 +55,7 @@ export default function ProcessSection() {
         </div>
 
         {/* Photo below — full width */}
-        <div className="relative overflow-hidden aspect-[16/9] max-w-4xl">
+        <div className="relative overflow-hidden aspect-[16/9]">
           <picture>
             <source type="image/avif" srcSet={`${DETAIL_BASE}.avif`} />
             <source type="image/webp" srcSet={`${DETAIL_BASE}.webp`} />
@@ -71,9 +71,20 @@ export default function ProcessSection() {
           </picture>
           <div className="absolute inset-0 ring-1 ring-inset ring-black/5" />
         </div>
-        <p className="mt-4 text-xs text-muted-foreground tracking-wide uppercase font-medium">
+        <p className="mt-4 mb-12 text-xs text-muted-foreground tracking-wide uppercase font-medium">
           From workshop to home — every piece, hand-finished
         </p>
+
+        {/* Quote block */}
+        <blockquote className="border-l-4 border-primary pl-8 py-6 bg-secondary/40 max-w-3xl">
+          <p className="text-foreground/80 text-lg italic leading-relaxed mb-4">
+            "Detailed 3D design using selected materials and finishes, allowing full visualization
+            before production begins and approval.
+          </p>
+          <cite className="text-xs tracking-widest uppercase font-medium text-foreground/60 not-italic">
+            Alexandru Burtea
+          </cite>
+        </blockquote>
       </div>
     </section>
   );
