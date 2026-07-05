@@ -14,45 +14,27 @@ export default function ProcessSection() {
           </p>
         </div>
 
-        {/* Two-column: numbered steps left, descriptions right */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start mb-16 lg:mb-24">
-          {/* Left — numbered steps */}
-          <ol className="space-y-0 list-none">
-            {t.process.steps.map((step, i) => (
-              <li
-                key={i}
-                className={`relative flex gap-6 py-8 ${
-                  i < t.process.steps.length - 1 ? 'border-b border-border' : ''
-                }`}
-              >
-                <div className="font-display text-6xl md:text-7xl font-light text-border leading-none select-none flex-shrink-0 w-16">
-                  {step.number}
-                </div>
-                <div className="pt-2">
-                  <h3 className="font-display text-xl md:text-2xl font-semibold text-foreground mb-3">
-                    {step.title}
-                  </h3>
-                </div>
-              </li>
-            ))}
-          </ol>
-
-          {/* Right — descriptions without numbers */}
-          <div className="space-y-0">
-            {t.process.steps.map((step, i) => (
-              <div
-                key={i}
-                className={`py-8 ${
-                  i < t.process.steps.length - 1 ? 'border-b border-border' : ''
-                }`}
-              >
-                <p className="text-foreground/80 text-base leading-relaxed">
-                  {step.description}
-                </p>
+        {/* Steps — one full-width row per step */}
+        <ol className="list-none mb-16 lg:mb-24">
+          {t.process.steps.map((step, i) => (
+            <li
+              key={i}
+              className={`grid grid-cols-[4rem_1fr_2fr] gap-8 lg:gap-16 items-start py-8 ${
+                i < t.process.steps.length - 1 ? 'border-b border-border' : ''
+              }`}
+            >
+              <div className="font-display text-5xl font-light text-border leading-none select-none">
+                {step.number}
               </div>
-            ))}
-          </div>
-        </div>
+              <h3 className="font-display text-xl md:text-2xl font-semibold text-foreground pt-1">
+                {step.title}
+              </h3>
+              <p className="text-foreground/80 text-base leading-relaxed pt-1">
+                {step.description}
+              </p>
+            </li>
+          ))}
+        </ol>
 
         {/* Photo below — full width */}
         <div className="relative overflow-hidden aspect-[16/9]">
