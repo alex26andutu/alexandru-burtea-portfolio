@@ -93,7 +93,7 @@ export default function PortfolioSection() {
   const [leavingIdx, setLeavingIdx] = useState<number | null>(null);
   const [hoverPaused, setHoverPaused] = useState(false);
   const [tabHidden, setTabHidden] = useState(false);
-  const [manuallyPaused, setManuallyPaused] = useState(false);
+  const [manuallyPaused, setManuallyPaused] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const leavingTimerRef = useRef<number | null>(null);
@@ -338,22 +338,27 @@ export default function PortfolioSection() {
                 </div>
               </div>
 
-              {/* Pause / Play */}
+              {/* Slideshow toggle button */}
               {filteredPhotos.length > 1 && (
                 <button
                   type="button"
-                  className="showcase-pause"
+                  className="showcase-slideshow-btn"
                   onClick={(e) => { e.stopPropagation(); setManuallyPaused(p => !p); }}
-                  aria-label={manuallyPaused ? t.portfolio.play : t.portfolio.pause}
-                  title={manuallyPaused ? t.portfolio.play : t.portfolio.pause}
+                  aria-label={manuallyPaused ? 'Start slideshow' : 'Stop slideshow'}
                 >
                   {manuallyPaused ? (
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                    <>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                      Slideshow
+                    </>
                   ) : (
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <rect x="6" y="5" width="4" height="14" rx="1" />
-                      <rect x="14" y="5" width="4" height="14" rx="1" />
-                    </svg>
+                    <>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <rect x="6" y="5" width="4" height="14" rx="1" />
+                        <rect x="14" y="5" width="4" height="14" rx="1" />
+                      </svg>
+                      Stop
+                    </>
                   )}
                 </button>
               )}
