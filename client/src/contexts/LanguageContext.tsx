@@ -184,7 +184,7 @@ const translations: Record<Language, Translations> = {
     contact: {
       heading: 'Contact',
       subheading: 'Available for relocation to the Netherlands. Open to full-time employment in a professional workshop.',
-      location: 'Iași, Romania — Willing to relocate to the Netherlands',
+      location: 'Currently based in Germany — Willing to relocate to the Netherlands',
       email_label: 'Email',
       whatsapp_label: 'WhatsApp',
       whatsapp_note: 'Message or call me anytime',
@@ -297,7 +297,7 @@ const translations: Record<Language, Translations> = {
     contact: {
       heading: 'Contact',
       subheading: 'Beschikbaar voor verhuizing naar Nederland. Open voor een vaste baan in een professionele werkplaats.',
-      location: 'Iași, Roemenië — Bereid te verhuizen naar Nederland',
+      location: 'Momenteel gevestigd in Duitsland — Bereid te verhuizen naar Nederland',
       email_label: 'E-mail',
       whatsapp_label: 'WhatsApp',
       whatsapp_note: 'Bericht of bel — altijd welkom',
