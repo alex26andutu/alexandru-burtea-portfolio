@@ -44,17 +44,6 @@ function shuffle<T>(arr: readonly T[]): T[] {
   return a;
 }
 
-// Category display labels
-const CATEGORY_LABELS: Record<PhotoCategory, string> = {
-  kitchen: 'Kitchens',
-  living_room: 'Living Rooms',
-  bedroom_wardrobe: 'Wardrobes',
-  hallway: 'Hallways',
-  dressing_room: 'Dressing Rooms',
-  bathroom: 'Bathrooms',
-  office_reception: 'Offices',
-};
-
 export default function PortfolioSection() {
   const { t } = useLanguage();
 
@@ -215,7 +204,7 @@ export default function PortfolioSection() {
   const progressKey = `${activeFilter}-${activeIdx}`;
 
   // Counter chip text
-  const filterChip = activeFilter !== 'all' ? CATEGORY_LABELS[activeFilter] : null;
+  const filterChip = activeFilter !== 'all' ? t.portfolio.categories[activeFilter] : null;
 
   return (
     <section id="portfolio" className="py-24 md:py-36 bg-secondary">
@@ -224,7 +213,7 @@ export default function PortfolioSection() {
         <div className="mb-12">
           <span className="section-label section-accent">{t.portfolio.heading}</span>
           <p className="mt-4 text-muted-foreground text-base max-w-xl leading-relaxed">
-            A selection of recent custom furniture projects
+            {t.portfolio.subheading}
           </p>
         </div>
 
@@ -317,7 +306,7 @@ export default function PortfolioSection() {
                         className={`showcase-dropdown-item ${activeFilter === 'all' ? 'active' : ''}`}
                         onClick={() => selectFilter('all')}
                       >
-                        <span>All work</span>
+                        <span>{t.portfolio.all_work}</span>
                         <span className="showcase-dropdown-count">{photos.length}</span>
                       </button>
                       {filterableCategories.map(cat => (
@@ -329,7 +318,7 @@ export default function PortfolioSection() {
                           className={`showcase-dropdown-item ${activeFilter === cat ? 'active' : ''}`}
                           onClick={() => selectFilter(cat)}
                         >
-                          <span>{CATEGORY_LABELS[cat]}</span>
+                          <span>{t.portfolio.categories[cat]}</span>
                           <span className="showcase-dropdown-count">{totalByCategory[cat] ?? 0}</span>
                         </button>
                       ))}
@@ -425,25 +414,25 @@ export default function PortfolioSection() {
                       <line x1="11" y1="18" x2="13" y2="18" />
                     </svg>
                     {activeFilter !== 'all' && (
-                      <span className="portfolio-grid-filter-label">{CATEGORY_LABELS[activeFilter as PhotoCategory]}</span>
+                      <span className="portfolio-grid-filter-label">{t.portfolio.categories[activeFilter as PhotoCategory]}</span>
                     )}
                   </button>
 
                   {filterOpen && (
                     <div className="showcase-dropdown" role="menu" aria-label="Filter by category">
                       <button type="button" role="menuitem" aria-current={activeFilter === 'all'} className={`showcase-dropdown-item ${activeFilter === 'all' ? 'active' : ''}`} onClick={() => selectFilter('all')}>
-                        <span>All work</span><span className="showcase-dropdown-count">{photos.length}</span>
+                        <span>{t.portfolio.all_work}</span><span className="showcase-dropdown-count">{photos.length}</span>
                       </button>
                       {filterableCategories.map(cat => (
                         <button key={cat} type="button" role="menuitem" aria-current={activeFilter === cat} className={`showcase-dropdown-item ${activeFilter === cat ? 'active' : ''}`} onClick={() => selectFilter(cat)}>
-                          <span>{CATEGORY_LABELS[cat]}</span><span className="showcase-dropdown-count">{totalByCategory[cat] ?? 0}</span>
+                          <span>{t.portfolio.categories[cat]}</span><span className="showcase-dropdown-count">{totalByCategory[cat] ?? 0}</span>
                         </button>
                       ))}
                     </div>
                   )}
                 </div>
 
-                <span className="portfolio-grid-count">{filteredPhotos.length} photos</span>
+                <span className="portfolio-grid-count">{filteredPhotos.length} {t.portfolio.photos}</span>
               </div>
 
               {/* Grid */}

@@ -198,7 +198,7 @@ export default function Navbar() {
           ))}
           <div className="flex items-center justify-between gap-3 pt-2 border-t border-border">
             <div className="flex items-center gap-3">
-              <span className="text-xs text-muted-foreground">Language:</span>
+              <span className="text-xs text-muted-foreground">{t.nav.language_label}</span>
               <div
                 role="group"
                 aria-label="Language"

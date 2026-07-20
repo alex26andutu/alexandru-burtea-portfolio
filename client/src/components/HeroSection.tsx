@@ -43,9 +43,15 @@ export default function HeroSection() {
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light text-white leading-none tracking-tight mb-6">
             {t.hero.name}
           </h1>
-          <p className="text-white/85 text-base md:text-lg font-light leading-relaxed mb-10 max-w-lg">
+          <p className="text-white/85 text-base md:text-lg font-light leading-relaxed mb-6 max-w-lg">
             {t.hero.subtitle}
           </p>
+          <div className="flex items-center gap-2 mb-8">
+            <span className="availability-dot on-image" />
+            <span className="text-white/80 text-xs font-medium tracking-[0.15em] uppercase">
+              {t.hero.available_from}
+            </span>
+          </div>
           <div className="flex flex-wrap gap-4">
             <a
               href="#portfolio"
@@ -68,7 +74,7 @@ export default function HeroSection() {
       <div className="absolute bottom-8 right-8 md:right-12 hidden md:flex flex-col items-center gap-2 opacity-60">
         <div className="w-px h-12 bg-white/50 animate-pulse" />
         <span className="text-white text-[10px] tracking-[0.2em] uppercase rotate-90 origin-center translate-y-4">
-          Scroll
+          {t.hero.scroll}
         </span>
       </div>
     </section>

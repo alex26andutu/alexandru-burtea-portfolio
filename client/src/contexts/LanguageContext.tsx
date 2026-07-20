@@ -32,6 +32,7 @@ interface Translations {
     contact: string;
     cv: string;
     available: string;
+    language_label: string;
   };
   hero: {
     name: string;
@@ -39,9 +40,13 @@ interface Translations {
     subtitle: string;
     cta_portfolio: string;
     cta_contact: string;
+    available_from: string;
+    scroll: string;
   };
   about: {
     heading: string;
+    heading_line1: string;
+    heading_line2: string;
     p1: string;
     p2: string;
     p3: string;
@@ -55,11 +60,15 @@ interface Translations {
     view_full: string;
     pause: string;
     play: string;
+    photos: string;
+    all_work: string;
     categories: Record<string, string>;
   };
   process: {
     heading: string;
     subheading: string;
+    caption: string;
+    quote: string;
     steps: { number: string; title: string; description: string }[];
   };
   skills: {
@@ -68,9 +77,14 @@ interface Translations {
   };
   contact: {
     heading: string;
+    heading_line1: string;
+    heading_line2: string;
     subheading: string;
     location: string;
+    available_from: string;
     email_label: string;
+    phone_label: string;
+    phone_note: string;
     whatsapp_label: string;
     whatsapp_note: string;
     linkedin_label: string;
@@ -103,6 +117,7 @@ const translations: Record<Language, Translations> = {
       contact: 'Contact',
       cv: 'Download CV',
       available: 'Available for hire',
+      language_label: 'Language:',
     },
     hero: {
       name: 'Alexandru Burtea',
@@ -110,9 +125,13 @@ const translations: Record<Language, Translations> = {
       subtitle: '10+ years of custom furniture craftsmanship. Precision, quality, and design — built to last.',
       cta_portfolio: 'View My Work',
       cta_contact: 'Get in Touch',
+      available_from: 'Available from 31 August 2026',
+      scroll: 'Scroll',
     },
     about: {
       heading: 'About Me',
+      heading_line1: 'Designed with purpose',
+      heading_line2: 'Crafted to last.',
       p1: 'My name is Alexandru Burtea, a furniture designer and craftsman with more than a decade of experience in custom furniture production. I work on a project basis, designing and manufacturing high-quality custom furniture, including kitchens, living rooms, bedrooms, bathrooms, dressing rooms, hallways, and office furniture for both residential and commercial spaces.',
       p2: 'I mainly undertake turnkey projects — planning, design, production, and installation — tailored to each client\'s needs.',
       p3: 'To ensure transparency and build trust, I provide a detailed 3D design so clients can visualize their project before giving their approval for production.',
@@ -127,10 +146,12 @@ const translations: Record<Language, Translations> = {
     },
     portfolio: {
       heading: 'Portfolio',
-      subheading: 'A selection of custom furniture projects delivered across residential and commercial spaces.',
+      subheading: 'A selection of recent custom furniture projects.',
       view_full: 'Click to view full size',
       pause: 'Pause slideshow',
       play: 'Resume slideshow',
+      photos: 'photos',
+      all_work: 'All work',
       categories: {
         all: 'All',
         kitchen: 'Kitchens',
@@ -145,6 +166,8 @@ const translations: Record<Language, Translations> = {
     process: {
       heading: 'My Process',
       subheading: 'From concept to completion — every project follows a clear, client-focused workflow.',
+      caption: 'From workshop to home — every piece, hand-finished',
+      quote: 'Detailed 3D design using the selected materials and finishes, so you can see the final result before production and give your approval.',
       steps: [
         {
           number: '01',
@@ -183,9 +206,14 @@ const translations: Record<Language, Translations> = {
     },
     contact: {
       heading: 'Contact',
+      heading_line1: 'Let\'s work',
+      heading_line2: 'together.',
       subheading: 'Available for relocation to the Netherlands. Open to full-time employment in a professional workshop.',
       location: 'Currently based in Germany — Willing to relocate to the Netherlands',
+      available_from: 'Available from 31 August 2026',
       email_label: 'Email',
+      phone_label: 'Phone',
+      phone_note: 'Call or message me anytime',
       whatsapp_label: 'WhatsApp',
       whatsapp_note: 'Message or call me anytime',
       linkedin_label: 'LinkedIn',
@@ -216,21 +244,26 @@ const translations: Record<Language, Translations> = {
       contact: 'Contact',
       cv: 'CV downloaden',
       available: 'Beschikbaar voor werk',
+      language_label: 'Taal:',
     },
     hero: {
       name: 'Alexandru Burtea',
       title: 'Meubelontwerper & Vakman',
-      subtitle: '10+ jaar ervaring in maatwerk meubilair. Precisie, kwaliteit en design — gemaakt om te blijven.',
+      subtitle: '10+ jaar ervaring in maatwerk meubilair. Precisie, kwaliteit en design — gemaakt om lang mee te gaan.',
       cta_portfolio: 'Bekijk mijn werk',
       cta_contact: 'Neem contact op',
+      available_from: 'Beschikbaar vanaf 31 augustus 2026',
+      scroll: 'Scroll',
     },
     about: {
       heading: 'Over mij',
-      p1: 'Mijn naam is Alexandru Burtea, meubelontwerper en vakman met meer dan een decennium ervaring in de productie van maatwerkmeubilair. Ik werk op projectbasis en ontwerp en produceer hoogwaardig maatwerkmeubilair, waaronder keukens, woonkamers, slaapkamers, badkamers, kleedkamers, gangen en kantoormeubilair voor zowel woon- als bedrijfsruimtes.',
-      p2: 'Ik neem voornamelijk sleutel-op-de-deur projecten aan — planning, ontwerp, productie en installatie — op maat van elke klant.',
+      heading_line1: 'Ontworpen met een doel.',
+      heading_line2: 'Vakwerk dat blijft.',
+      p1: 'Mijn naam is Alexandru Burtea, meubelmaker en ontwerper met meer dan tien jaar ervaring in de productie van maatwerk meubelen. Ik werk op projectbasis en ontwerp en produceer hoogwaardig maatwerk, waaronder keukens, woonkamers, slaapkamers, badkamers, kleedkamers, gangen en kantoormeubilair voor zowel woon- als bedrijfsruimtes.',
+      p2: 'Ik neem voornamelijk turnkey projecten aan — planning, ontwerp, productie en montage — afgestemd op elke klant.',
       p3: 'Om transparantie te garanderen en vertrouwen op te bouwen, lever ik een gedetailleerd 3D-ontwerp zodat klanten hun project kunnen visualiseren voordat zij hun goedkeuring geven voor de productie.',
       p4: 'Ik heb meubilair vervaardigd voor particulieren en bedrijven in Engeland, Nederland, Duitsland en Roemenië.',
-      p5: 'Na de succesvolle afronding van meerdere langlopende projecten ben ik nu beschikbaar voor nieuwe projecten, bij voorkeur in Nederland, waar ik nog steeds lopende projecten heb.',
+      p5: 'Na meerdere langlopende projecten succesvol te hebben afgerond, ben ik nu beschikbaar voor nieuwe projecten, bij voorkeur in Nederland, waar ik nog steeds lopende projecten heb.',
       stats: [
         { value: '10+', label: 'Jaar ervaring' },
         { value: '4', label: 'Jaar als ondernemer' },
@@ -240,10 +273,12 @@ const translations: Record<Language, Translations> = {
     },
     portfolio: {
       heading: 'Portfolio',
-      subheading: 'Een selectie van maatwerk meubelprojecten voor woon- en commerciële ruimtes.',
+      subheading: 'Een selectie van recente maatwerk meubelprojecten.',
       view_full: 'Klik voor volledige weergave',
       pause: 'Diavoorstelling pauzeren',
       play: 'Diavoorstelling hervatten',
+      photos: 'foto\'s',
+      all_work: 'Alle projecten',
       categories: {
         all: 'Alles',
         kitchen: 'Keukens',
@@ -258,6 +293,8 @@ const translations: Record<Language, Translations> = {
     process: {
       heading: 'Werkwijze',
       subheading: 'Van concept tot oplevering — elk project volgt een duidelijk, klantgericht proces.',
+      caption: 'Van werkplaats tot woning — elk stuk met de hand afgewerkt',
+      quote: 'Gedetailleerd 3D-ontwerp met de gekozen materialen en afwerkingen — zo ziet u het eindresultaat vóór productie en geeft u akkoord.',
       steps: [
         {
           number: '01',
@@ -276,29 +313,34 @@ const translations: Record<Language, Translations> = {
         },
         {
           number: '04',
-          title: 'Installatie',
-          description: 'Montage en installatie op locatie met precisie, zodat alles perfect past en voldoet aan de hoogste kwaliteitsnormen.',
+          title: 'Montage',
+          description: 'Montage op locatie met precisie, zodat alles perfect past en voldoet aan de hoogste kwaliteitsnormen.',
         },
       ],
     },
     skills: {
       heading: 'Vaardigheden & Expertise',
       items: [
-        'Maatwerk kast- en meubelfabricage',
+        'Maatwerk meubelen & interieurbouw',
         'Keuken- en kastontwerp & montage',
         '3D-ontwerp',
         'Lezen en werken vanuit technische tekeningen',
-        'MDF, gelamineerde platen, multiplex & massief hout',
+        'Plaatmateriaal (MDF, multiplex, gelamineerd) & massief hout',
         'Professionele houtbewerkingsmachines & handgereedschap',
-        'Opmeten, passen en installeren op locatie',
+        'Opmeten op locatie, passen en montage',
         'Projectbeheer & klantcommunicatie',
       ],
     },
     contact: {
       heading: 'Contact',
+      heading_line1: 'Laten we',
+      heading_line2: 'samenwerken.',
       subheading: 'Beschikbaar voor verhuizing naar Nederland. Open voor een vaste baan in een professionele werkplaats.',
       location: 'Momenteel gevestigd in Duitsland — Bereid te verhuizen naar Nederland',
+      available_from: 'Beschikbaar vanaf 31 augustus 2026',
       email_label: 'E-mail',
+      phone_label: 'Telefoon',
+      phone_note: 'Bel of stuur een bericht — altijd welkom',
       whatsapp_label: 'WhatsApp',
       whatsapp_note: 'Bericht of bel — altijd welkom',
       linkedin_label: 'LinkedIn',
@@ -317,7 +359,7 @@ const translations: Record<Language, Translations> = {
     },
     footer: {
       text: '© 2025 Alexandru Burtea. Alle rechten voorbehouden.',
-      tagline: 'Maatwerk Meubelontwerper & Vakman',
+      tagline: 'Meubelmaker & maatwerk interieurbouw',
     },
   },
 };
