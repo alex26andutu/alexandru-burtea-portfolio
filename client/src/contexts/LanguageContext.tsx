@@ -9,18 +9,20 @@ type Language = 'en' | 'nl';
 
 const STORAGE_KEY = 'lang';
 
+// Dutch is the default: the site targets employers in the Netherlands, so
+// first-time visitors (and the prerendered HTML crawlers see) get NL.
+// A visitor's explicit choice is remembered and always wins.
+const DEFAULT_LANGUAGE: Language = 'nl';
+
 function getInitialLanguage(): Language {
-  if (typeof window === 'undefined') return 'en';
+  if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored === 'en' || stored === 'nl') return stored;
   } catch {
     /* ignore */
   }
-  // Detect Dutch from browser, otherwise English
-  const navLang = window.navigator?.language?.toLowerCase() ?? '';
-  if (navLang.startsWith('nl')) return 'nl';
-  return 'en';
+  return DEFAULT_LANGUAGE;
 }
 
 interface Translations {
@@ -125,7 +127,7 @@ const translations: Record<Language, Translations> = {
       subtitle: '10+ years of custom furniture craftsmanship. Precision, quality, and design — built to last.',
       cta_portfolio: 'View My Work',
       cta_contact: 'Get in Touch',
-      available_from: 'Available from 31 August 2026',
+      available_from: 'Available from 14 September 2026',
       scroll: 'Scroll',
     },
     about: {
@@ -210,7 +212,7 @@ const translations: Record<Language, Translations> = {
       heading_line2: 'together.',
       subheading: 'Available for relocation to the Netherlands. Open to full-time employment in a professional workshop.',
       location: 'Currently based in Germany — Willing to relocate to the Netherlands',
-      available_from: 'Available from 31 August 2026',
+      available_from: 'Available from 14 September 2026',
       email_label: 'Email',
       phone_label: 'Phone',
       phone_note: 'Call or message me anytime',
@@ -252,7 +254,7 @@ const translations: Record<Language, Translations> = {
       subtitle: '10+ jaar ervaring in maatwerk meubilair. Precisie, kwaliteit en design — gemaakt om lang mee te gaan.',
       cta_portfolio: 'Bekijk mijn werk',
       cta_contact: 'Neem contact op',
-      available_from: 'Beschikbaar vanaf 31 augustus 2026',
+      available_from: 'Beschikbaar vanaf 14 september 2026',
       scroll: 'Scroll',
     },
     about: {
@@ -337,7 +339,7 @@ const translations: Record<Language, Translations> = {
       heading_line2: 'samenwerken.',
       subheading: 'Beschikbaar voor verhuizing naar Nederland. Open voor een vaste baan in een professionele werkplaats.',
       location: 'Momenteel gevestigd in Duitsland — Bereid te verhuizen naar Nederland',
-      available_from: 'Beschikbaar vanaf 31 augustus 2026',
+      available_from: 'Beschikbaar vanaf 14 september 2026',
       email_label: 'E-mail',
       phone_label: 'Telefoon',
       phone_note: 'Bel of stuur een bericht — altijd welkom',
