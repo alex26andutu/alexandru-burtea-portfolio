@@ -121,7 +121,7 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       name: 'Alexandru Burtea',
-      title: 'Furniture Designer & Craftsman',
+      title: 'Custom Furniture Maker',
       subtitle: '10+ years of custom furniture craftsmanship. Precision, quality, and design — built to last.',
       cta_portfolio: 'View My Work',
       cta_contact: 'Get in Touch',
@@ -132,7 +132,7 @@ const translations: Record<Language, Translations> = {
       heading: 'About Me',
       heading_line1: 'Designed with purpose',
       heading_line2: 'Crafted to last.',
-      p1: 'My name is Alexandru Burtea, a furniture designer and craftsman with more than a decade of experience in custom furniture production. I work on a project basis, designing and manufacturing high-quality custom furniture, including kitchens, living rooms, bedrooms, bathrooms, dressing rooms, hallways, and office furniture for both residential and commercial spaces.',
+      p1: 'My name is Alexandru Burtea, a furniture maker and cabinet maker with more than a decade of experience in custom furniture production. I work on a project basis, designing and manufacturing high-quality custom furniture, including kitchens, living rooms, bedrooms, bathrooms, dressing rooms, hallways, and office furniture for both residential and commercial spaces.',
       p2: 'I mainly undertake turnkey projects — planning, design, production, and installation — tailored to each client\'s needs.',
       p3: 'To ensure transparency and build trust, I provide a detailed 3D design so clients can visualize their project before giving their approval for production.',
       p4: 'I have crafted furniture for private clients and companies in England, the Netherlands, Germany, and Romania.',
@@ -232,7 +232,7 @@ const translations: Record<Language, Translations> = {
     },
     footer: {
       text: '© 2025 Alexandru Burtea. All rights reserved.',
-      tagline: 'Custom Furniture Designer & Craftsman',
+      tagline: 'Custom Furniture Maker & Cabinet Maker',
     },
   },
   nl: {
@@ -248,7 +248,7 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       name: 'Alexandru Burtea',
-      title: 'Meubelontwerper & Vakman',
+      title: 'Meubelmaker & Interieurbouwer',
       subtitle: '10+ jaar ervaring in maatwerk meubilair. Precisie, kwaliteit en design — gemaakt om lang mee te gaan.',
       cta_portfolio: 'Bekijk mijn werk',
       cta_contact: 'Neem contact op',
@@ -259,7 +259,7 @@ const translations: Record<Language, Translations> = {
       heading: 'Over mij',
       heading_line1: 'Ontworpen met een doel.',
       heading_line2: 'Vakwerk dat blijft.',
-      p1: 'Mijn naam is Alexandru Burtea, meubelmaker en ontwerper met meer dan tien jaar ervaring in de productie van maatwerk meubelen. Ik werk op projectbasis en ontwerp en produceer hoogwaardig maatwerk, waaronder keukens, woonkamers, slaapkamers, badkamers, kleedkamers, gangen en kantoormeubilair voor zowel woon- als bedrijfsruimtes.',
+      p1: 'Mijn naam is Alexandru Burtea, meubelmaker en interieurbouwer met meer dan tien jaar ervaring in de productie van maatwerk meubelen. Ik werk op projectbasis en ontwerp en produceer hoogwaardig maatwerk, waaronder keukens, woonkamers, slaapkamers, badkamers, kleedkamers, gangen en kantoormeubilair voor zowel woon- als bedrijfsruimtes.',
       p2: 'Ik neem voornamelijk turnkey projecten aan — planning, ontwerp, productie en montage — afgestemd op elke klant.',
       p3: 'Om transparantie te garanderen en vertrouwen op te bouwen, lever ik een gedetailleerd 3D-ontwerp zodat klanten hun project kunnen visualiseren voordat zij hun goedkeuring geven voor de productie.',
       p4: 'Ik heb meubilair vervaardigd voor particulieren en bedrijven in Engeland, Nederland, Duitsland en Roemenië.',
