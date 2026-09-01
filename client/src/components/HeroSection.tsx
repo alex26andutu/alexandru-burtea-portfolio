@@ -23,10 +23,12 @@ export default function HeroSection() {
           sizes="100vw"
         />
         {/* JPG fallback — universal */}
+        {/* Described rather than decorative: this is a portfolio photo, so it
+            carries content a screen-reader user should get. aria-hidden is
+            deliberately absent — with it, the alt below would never be read. */}
         <img
           src={`${HERO_BASE}.jpg`}
-          alt=""
-          aria-hidden="true"
+          alt={t.hero.photo_alt}
           width={1600}
           height={1200}
           decoding="async"

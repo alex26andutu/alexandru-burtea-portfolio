@@ -44,6 +44,9 @@ interface Translations {
     cta_contact: string;
     available_from: string;
     scroll: string;
+    /** Alt for the hero photo. Describes what is pictured only — no material
+     *  or construction claims. */
+    photo_alt: string;
   };
   about: {
     heading: string;
@@ -138,6 +141,7 @@ const translations: Record<Language, Translations> = {
       cta_contact: 'Get in Touch',
       available_from: 'Available from 30 September 2026',
       scroll: 'Scroll',
+      photo_alt: 'Dining area with a slatted room divider and built-in display niches',
     },
     about: {
       heading: 'About Me',
@@ -228,7 +232,7 @@ const translations: Record<Language, Translations> = {
       heading_line1: 'Let\'s work',
       heading_line2: 'together.',
       subheading: 'Available for relocation to the Netherlands. Open to full-time employment in a professional workshop.',
-      location: 'Currently based in Germany — Willing to relocate to the Netherlands',
+      location: 'Romanian EU citizen — no work permit required · Willing to relocate to the Netherlands',
       available_from: 'Available from 30 September 2026',
       email_label: 'Email',
       phone_label: 'Phone',
@@ -273,6 +277,7 @@ const translations: Record<Language, Translations> = {
       cta_contact: 'Neem contact op',
       available_from: 'Beschikbaar vanaf 30 september 2026',
       scroll: 'Scroll',
+      photo_alt: 'Eethoek met een lamellenscheidingswand en ingebouwde nissen',
     },
     about: {
       heading: 'Over mij',
@@ -363,7 +368,7 @@ const translations: Record<Language, Translations> = {
       heading_line1: 'Laten we',
       heading_line2: 'samenwerken.',
       subheading: 'Beschikbaar voor verhuizing naar Nederland. Open voor een vaste baan in een professionele werkplaats.',
-      location: 'Momenteel gevestigd in Duitsland — Bereid te verhuizen naar Nederland',
+      location: 'Roemeense EU-burger — geen werkvergunning nodig · Bereid te verhuizen naar Nederland',
       available_from: 'Beschikbaar vanaf 30 september 2026',
       email_label: 'E-mail',
       phone_label: 'Telefoon',
