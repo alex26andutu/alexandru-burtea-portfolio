@@ -64,18 +64,15 @@ interface Translations {
   portfolio: {
     heading: string;
     subheading: string;
-    view_full: string;
-    pause: string;
-    play: string;
     photos: string;
-    all_work: string;
-    /** Labels on the grid/slideshow view toggle. */
-    view_grid: string;
-    view_slideshow: string;
     view_all: string;
-    /** Joins a shown/total pair, e.g. "6 of 17" / "6 van 17". */
-    count_of: string;
+    /** Link back from an opened category to the six cards. */
+    all_categories: string;
+    /** Reveals the rest of a category past the initial batch. */
+    show_more: string;
     categories: Record<string, string>;
+    /** One line per category, shown on its card. Owner to refine. */
+    category_blurb: Record<string, string>;
   };
   process: {
     heading: string;
@@ -162,15 +159,10 @@ const translations: Record<Language, Translations> = {
     portfolio: {
       heading: 'Portfolio',
       subheading: 'A selection of recent custom furniture projects.',
-      view_full: 'Click to view full size',
-      pause: 'Pause slideshow',
-      play: 'Resume slideshow',
       photos: 'photos',
-      all_work: 'All work',
-      view_grid: 'Grid',
-      view_slideshow: 'Slideshow',
       view_all: 'View all',
-      count_of: 'of',
+      all_categories: 'All categories',
+      show_more: 'Show more',
       categories: {
         all: 'All',
         kitchen: 'Kitchens',
@@ -180,6 +172,14 @@ const translations: Record<Language, Translations> = {
         dressing_room: 'Dressing Rooms',
         bathroom: 'Bathrooms',
         office_reception: 'Offices & Receptions',
+      },
+      category_blurb: {
+        kitchen: 'Full kitchen installations — islands, tall appliance runs, handleless and fluted fronts.',
+        living_room: 'Media walls, floating units, sideboards and built-in shelving.',
+        bedroom_wardrobe: 'Walk-in wardrobes, fitted cupboards, dressing tables and glazed-door units.',
+        hallway: 'Entrance units, coat storage and full-height hallway cabinetry.',
+        bathroom: 'Vanity units and bathroom storage, including fitted drawer interiors.',
+        office_reception: 'Reception desks, office storage walls and commercial fit-outs.',
       },
     },
     process: {
@@ -294,15 +294,10 @@ const translations: Record<Language, Translations> = {
     portfolio: {
       heading: 'Portfolio',
       subheading: 'Een selectie van recente maatwerk meubelprojecten.',
-      view_full: 'Klik voor volledige weergave',
-      pause: 'Diavoorstelling pauzeren',
-      play: 'Diavoorstelling hervatten',
       photos: 'foto\'s',
-      all_work: 'Alle projecten',
-      view_grid: 'Raster',
-      view_slideshow: 'Diavoorstelling',
       view_all: 'Bekijk alles',
-      count_of: 'van',
+      all_categories: 'Alle categorieën',
+      show_more: 'Toon meer',
       categories: {
         all: 'Alles',
         kitchen: 'Keukens',
@@ -312,6 +307,14 @@ const translations: Record<Language, Translations> = {
         dressing_room: 'Kleedkamers',
         bathroom: 'Badkamers',
         office_reception: 'Kantoren & Recepties',
+      },
+      category_blurb: {
+        kitchen: 'Complete keukens — eilanden, hoge apparatenkasten, greeploze en gegroefde fronten.',
+        living_room: 'Mediawanden, zwevende kasten, dressoirs en inbouwkasten.',
+        bedroom_wardrobe: 'Inloopkasten, kledingkasten op maat, kaptafels en kasten met glasdeuren.',
+        hallway: 'Entreemeubels, garderobekasten en gangkasten over de volle hoogte.',
+        bathroom: 'Badmeubels en badkamerkasten, inclusief lade-indelingen op maat.',
+        office_reception: 'Ontvangstbalies, kantoorkastenwanden en zakelijke inrichting.',
       },
     },
     process: {
