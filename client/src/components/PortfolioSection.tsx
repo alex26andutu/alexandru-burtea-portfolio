@@ -43,11 +43,23 @@ type ViewMode = 'slideshow' | 'grid';
 type Filter = PhotoCategory | 'all';
 
 export default function PortfolioSection() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
-  // ── Persistent state ──────────────────────────────────────────────────
+  /*
+   * ── Persistent state ────────────────────────────────────────────────
+   * Grid is the default for a first-time visitor: an employer has a minute
+   * on this page, and the grid shows the range of rooms at a glance where
+   * the slideshow shows one paused photo. A stored choice always wins, and
+   * the prerendered HTML shows the grid too, so crawlers see the work.
+   */
   const [viewMode, setViewMode] = useState<ViewMode>(() => {
-    try { return (localStorage.getItem(LS_VIEW) as ViewMode) || 'slideshow'; } catch { return 'slideshow'; }
+    try {
+      const stored = localStorage.getItem(LS_VIEW);
+      // Only honour a value we actually recognise; anything else is stale.
+      return stored === 'slideshow' || stored === 'grid' ? stored : 'grid';
+    } catch {
+      return 'grid';
+    }
   });
   const [activeFilter, setActiveFilter] = useState<Filter>(() => {
     try { return (localStorage.getItem(LS_FILTER) as Filter) || 'all'; } catch { return 'all'; }
@@ -238,9 +250,6 @@ export default function PortfolioSection() {
    */
   const renderCell = (photo: Photo, index: number) => {
     const isWide = photo.orientation === 'wide';
-    // Captions are owner-written and optional; blank ones render nothing at
-    // all rather than an empty gradient bar.
-    const caption = isWide ? photo.caption?.[language]?.trim() : '';
     return (
       <button
         key={photo.id}
@@ -254,7 +263,6 @@ export default function PortfolioSection() {
           <source srcSet={`${photo.base}.webp`} type="image/webp" />
           <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" className="portfolio-grid-img" />
         </picture>
-        {caption && <span className="portfolio-grid-caption">{caption}</span>}
         <span className="portfolio-grid-seq">{String(index + 1).padStart(2, '0')}</span>
       </button>
     );
@@ -328,8 +336,8 @@ export default function PortfolioSection() {
                   type="button"
                   className="showcase-ctrl-btn"
                   onClick={() => setViewMode('grid')}
-                  aria-label="Switch to grid view"
-                  title="Switch to grid view"
+                  aria-label={t.portfolio.view_grid}
+                  title={t.portfolio.view_grid}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="3" y="3" width="7" height="7" rx="1" />
@@ -446,17 +454,18 @@ export default function PortfolioSection() {
             <div className="portfolio-grid-wrapper">
               {/* Controls bar above grid */}
               <div className="portfolio-grid-topbar">
+                {/* Labelled, not icon-only: with the grid as the landing view
+                    this is the only signpost that a slideshow exists at all. */}
                 <button
                   type="button"
-                  className="showcase-ctrl-btn active"
+                  className="showcase-ctrl-btn portfolio-view-toggle"
                   onClick={() => setViewMode('slideshow')}
-                  aria-label={t.portfolio.pause}
-                  title={t.portfolio.pause}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="2" y="3" width="20" height="14" rx="2" />
                     <path d="M8 21h8M12 17v4" />
                   </svg>
+                  <span className="portfolio-view-toggle-label">{t.portfolio.view_slideshow}</span>
                 </button>
 
                 <span className="portfolio-grid-count">{gridPhotos.length} {t.portfolio.photos}</span>

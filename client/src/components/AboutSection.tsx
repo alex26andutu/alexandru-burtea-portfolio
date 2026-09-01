@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useCountUp } from '@/hooks/useCountUp';
+import { populatedCategories } from '@/lib/photos';
 
 function Stat({ value, label }: { value: string; label: string }) {
   const { ref, display } = useCountUp(value);
@@ -19,7 +20,7 @@ function Stat({ value, label }: { value: string; label: string }) {
   );
 }
 
-// Craftsmanship close-up: dovetail joinery on oak drawer — self-hosted
+// Portrait of Alexandru Burtea in the workshop — self-hosted
 const WORKSHOP_BASE = '/images/about_workshop';
 
 export default function AboutSection() {
@@ -93,7 +94,7 @@ export default function AboutSection() {
                 <source type="image/webp" srcSet={`${WORKSHOP_BASE}.webp`} />
                 <img
                   src={`${WORKSHOP_BASE}.jpg`}
-                  alt="Close-up of hand-cut dovetail joinery on an oak drawer — craftsmanship by Alexandru Burtea"
+                  alt={t.about.workshop_alt}
                   width={1248}
                   height={1248}
                   className="w-full h-full object-cover"
@@ -105,7 +106,11 @@ export default function AboutSection() {
             </div>
             <div className="fade-in-item grid grid-cols-2 gap-px bg-border">
               {t.about.stats.map((stat, i) => (
-                <Stat key={i} value={stat.value} label={stat.label} />
+                <Stat
+                  key={i}
+                  value={stat.value.replace('{categories}', String(populatedCategories.length))}
+                  label={stat.label}
+                />
               ))}
             </div>
           </div>

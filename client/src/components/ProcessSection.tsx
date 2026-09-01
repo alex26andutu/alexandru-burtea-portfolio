@@ -43,7 +43,7 @@ export default function ProcessSection() {
             <source type="image/webp" srcSet={`${DETAIL_BASE}.webp`} />
             <img
               src={`${DETAIL_BASE}.jpg`}
-              alt="Craftsman hand-planing a custom walnut TV unit in the workshop"
+              alt="A cabinet on a workbench in the workshop"
               width={1364}
               height={768}
               className="w-full h-full object-cover"

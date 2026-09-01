@@ -47,6 +47,9 @@ interface Translations {
   };
   about: {
     heading: string;
+    /** Alt text for the portrait beside the bio. Describes what is
+     *  pictured only — no material or construction claims. */
+    workshop_alt: string;
     heading_line1: string;
     heading_line2: string;
     p1: string;
@@ -54,6 +57,8 @@ interface Translations {
     p3: string;
     p4: string;
     p5: string;
+    /** A stat value may contain {categories}; AboutSection fills it from the
+     *  gallery so the figure cannot drift from the actual work. */
     stats: { value: string; label: string }[];
   };
   portfolio: {
@@ -64,6 +69,9 @@ interface Translations {
     play: string;
     photos: string;
     all_work: string;
+    /** Labels on the grid/slideshow view toggle. */
+    view_grid: string;
+    view_slideshow: string;
     view_all: string;
     /** Joins a shown/total pair, e.g. "6 of 17" / "6 van 17". */
     count_of: string;
@@ -107,6 +115,7 @@ interface Translations {
     form_error: string;
   };
   footer: {
+    /** Contains the literal {year}; Footer.tsx swaps in the current year. */
     text: string;
     tagline: string;
   };
@@ -130,11 +139,12 @@ const translations: Record<Language, Translations> = {
       subtitle: '10+ years of custom furniture craftsmanship. Precision, quality, and design — built to last.',
       cta_portfolio: 'View My Work',
       cta_contact: 'Get in Touch',
-      available_from: 'Available from 14 September 2026',
+      available_from: 'Available from 30 September 2026',
       scroll: 'Scroll',
     },
     about: {
       heading: 'About Me',
+      workshop_alt: 'Alexandru Burtea in his workshop',
       heading_line1: 'Designed with purpose',
       heading_line2: 'Crafted to last.',
       p1: 'My name is Alexandru Burtea, a furniture maker and cabinet maker with more than a decade of experience in custom furniture production. I work on a project basis, designing and manufacturing high-quality custom furniture, including kitchens, living rooms, bedrooms, bathrooms, dressing rooms, hallways, and office furniture for both residential and commercial spaces.',
@@ -145,7 +155,7 @@ const translations: Record<Language, Translations> = {
       stats: [
         { value: '10+', label: 'Years of Experience' },
         { value: '4', label: 'Years as Entrepreneur' },
-        { value: '7', label: 'Furniture Categories' },
+        { value: '{categories}', label: 'Furniture Categories' },
         { value: '100%', label: 'Custom Made' },
       ],
     },
@@ -157,6 +167,8 @@ const translations: Record<Language, Translations> = {
       play: 'Resume slideshow',
       photos: 'photos',
       all_work: 'All work',
+      view_grid: 'Grid',
+      view_slideshow: 'Slideshow',
       view_all: 'View all',
       count_of: 'of',
       categories: {
@@ -217,7 +229,7 @@ const translations: Record<Language, Translations> = {
       heading_line2: 'together.',
       subheading: 'Available for relocation to the Netherlands. Open to full-time employment in a professional workshop.',
       location: 'Currently based in Germany — Willing to relocate to the Netherlands',
-      available_from: 'Available from 14 September 2026',
+      available_from: 'Available from 30 September 2026',
       email_label: 'Email',
       phone_label: 'Phone',
       phone_note: 'Call or message me anytime',
@@ -238,7 +250,7 @@ const translations: Record<Language, Translations> = {
       form_error: 'Something went wrong. Please email me directly at info@alexandruburtea.nl.',
     },
     footer: {
-      text: '© 2025 Alexandru Burtea. All rights reserved.',
+      text: '© {year} Alexandru Burtea. All rights reserved.',
       tagline: 'Custom Furniture Maker & Cabinet Maker',
     },
   },
@@ -259,11 +271,12 @@ const translations: Record<Language, Translations> = {
       subtitle: '10+ jaar ervaring in maatwerk meubilair. Precisie, kwaliteit en design — gemaakt om lang mee te gaan.',
       cta_portfolio: 'Bekijk mijn werk',
       cta_contact: 'Neem contact op',
-      available_from: 'Beschikbaar vanaf 14 september 2026',
+      available_from: 'Beschikbaar vanaf 30 september 2026',
       scroll: 'Scroll',
     },
     about: {
       heading: 'Over mij',
+      workshop_alt: 'Alexandru Burtea in zijn werkplaats',
       heading_line1: 'Ontworpen met een doel.',
       heading_line2: 'Vakwerk dat blijft.',
       p1: 'Mijn naam is Alexandru Burtea, meubelmaker en interieurbouwer met meer dan tien jaar ervaring in de productie van maatwerk meubelen. Ik werk op projectbasis en ontwerp en produceer hoogwaardig maatwerk, waaronder keukens, woonkamers, slaapkamers, badkamers, kleedkamers, gangen en kantoormeubilair voor zowel woon- als bedrijfsruimtes.',
@@ -274,7 +287,7 @@ const translations: Record<Language, Translations> = {
       stats: [
         { value: '10+', label: 'Jaar ervaring' },
         { value: '4', label: 'Jaar als ondernemer' },
-        { value: '7', label: 'Meubelcategorieën' },
+        { value: '{categories}', label: 'Meubelcategorieën' },
         { value: '100%', label: 'Op maat gemaakt' },
       ],
     },
@@ -286,6 +299,8 @@ const translations: Record<Language, Translations> = {
       play: 'Diavoorstelling hervatten',
       photos: 'foto\'s',
       all_work: 'Alle projecten',
+      view_grid: 'Raster',
+      view_slideshow: 'Diavoorstelling',
       view_all: 'Bekijk alles',
       count_of: 'van',
       categories: {
@@ -346,7 +361,7 @@ const translations: Record<Language, Translations> = {
       heading_line2: 'samenwerken.',
       subheading: 'Beschikbaar voor verhuizing naar Nederland. Open voor een vaste baan in een professionele werkplaats.',
       location: 'Momenteel gevestigd in Duitsland — Bereid te verhuizen naar Nederland',
-      available_from: 'Beschikbaar vanaf 14 september 2026',
+      available_from: 'Beschikbaar vanaf 30 september 2026',
       email_label: 'E-mail',
       phone_label: 'Telefoon',
       phone_note: 'Bel of stuur een bericht — altijd welkom',
@@ -367,7 +382,7 @@ const translations: Record<Language, Translations> = {
       form_error: 'Er ging iets mis. Stuur me direct een e-mail op info@alexandruburtea.nl.',
     },
     footer: {
-      text: '© 2025 Alexandru Burtea. Alle rechten voorbehouden.',
+      text: '© {year} Alexandru Burtea. Alle rechten voorbehouden.',
       tagline: 'Meubelmaker & maatwerk interieurbouw',
     },
   },

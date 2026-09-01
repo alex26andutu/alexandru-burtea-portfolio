@@ -23,8 +23,8 @@ const PHONE_DISPLAY = '+49 160 5718168';
 const WHATSAPP_NUMBER = '40735488154';
 const WHATSAPP_DISPLAY = '+40 735 488 154';
 const EMAIL = 'info@alexandruburtea.nl';
-const LINKEDIN_URL = 'https://www.linkedin.com/in/alexandru-burtea';
-const LINKEDIN_DISPLAY = 'linkedin.com/in/alexandru-burtea';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/alexandru-burtea-meubelmaker/';
+const LINKEDIN_DISPLAY = 'linkedin.com/in/alexandru-burtea-meubelmaker';
 
 export default function ContactSection() {
   const { t, language } = useLanguage();

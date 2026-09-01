@@ -16,12 +16,6 @@ export type PhotoCategory =
  */
 export type Orientation = 'wide' | 'tall';
 
-/** Optional caption, shown over wide shots only. Both languages required. */
-export interface Caption {
-  en: string;
-  nl: string;
-}
-
 export interface Photo {
   id: string;
   /** Base path with no extension, e.g. '/images/kitchen_01'. */
@@ -31,22 +25,26 @@ export interface Photo {
   category: PhotoCategory;
   orientation: Orientation;
   alt: string;
-  caption?: Caption;
 }
 
 const categoryLabel: Record<PhotoCategory, string> = {
-  kitchen: 'kitchen',
-  living_room: 'living room',
-  bedroom_wardrobe: 'bedroom wardrobe',
-  hallway: 'hallway storage',
-  dressing_room: 'dressing room',
-  bathroom: 'bathroom cabinetry',
-  office_reception: 'office / reception',
+  kitchen: 'Kitchen',
+  living_room: 'Living room',
+  bedroom_wardrobe: 'Bedroom wardrobe',
+  hallway: 'Hallway',
+  dressing_room: 'Dressing room',
+  bathroom: 'Bathroom',
+  office_reception: 'Office / reception',
 };
 
+/*
+ * Alt text names the room and the position in the set — nothing more.
+ * It deliberately makes no claim about materials or how a piece was built:
+ * those are the owner's to state, and only where he has verified them.
+ */
 function makeAlt(category: PhotoCategory, idx: number, custom?: string): string {
   if (custom) return custom;
-  return `Custom ${categoryLabel[category]} project #${idx} — handcrafted by Alexandru Burtea`;
+  return `${categoryLabel[category]} — project ${idx}, Alexandru Burtea`;
 }
 
 /*
@@ -61,33 +59,18 @@ type Source = {
   file: string;
   category: PhotoCategory;
   orientation: Orientation;
-  /** Owner-written caption. Wide shots only; leave undefined for no caption. */
-  caption?: Caption;
   description?: string;
 };
 
-/*
- * CAPTIONS — the 12 entries below are DRAFTS written by describing what is
- * visible in each photo. They are not the owner's words yet: review, correct
- * any material or construction detail that is wrong, and rewrite in your own
- * voice. Captions render on 'wide' photos only; a photo without one shows no
- * caption and no gradient. Both languages are required by the type.
- */
 const sources: Source[] = [
   // ── kitchen (17) ─────────────────────────────────────────
   // Curated first 6: these are what the grid shows before "view all".
-  { id: 'kitchen_06', file: 'kitchen_06.jpg', category: 'kitchen', orientation: 'wide',
-    // DRAFT caption — written from what is visible; owner to review/replace.
-    caption: { en: 'Handleless kitchen with fluted fronts and a walnut tall unit; integrated hob with downdraft extractor, laid over herringbone oak.',
-               nl: 'Greeploze keuken met geribbelde fronten en een notenhouten kastenwand; kookplaat met downdraft-afzuiging, op visgraat eikenparket.' } },
+  { id: 'kitchen_06', file: 'kitchen_06.jpg', category: 'kitchen', orientation: 'wide' },
   { id: 'kitchen_02', file: 'kitchen_02.jpg', category: 'kitchen', orientation: 'tall' },
   { id: 'kitchen_09', file: 'kitchen_09.jpg', category: 'kitchen', orientation: 'tall' },
   { id: 'kitchen_05', file: 'kitchen_05.jpg', category: 'kitchen', orientation: 'tall' },
   { id: 'kitchen_01', file: 'kitchen_01.jpg', category: 'kitchen', orientation: 'tall' },
-  { id: 'kitchen_14', file: 'kitchen_14.jpg', category: 'kitchen', orientation: 'wide',
-    // DRAFT caption — written from what is visible; owner to review/replace.
-    caption: { en: 'Deep green units with a marble-effect splashback and glazed upper cabinet; integrated oven and hob, LED strip under the wall units.',
-               nl: 'Donkergroene fronten met marmerlook achterwand en een glazen bovenkast; ingebouwde oven en kookplaat, ledstrip onder de bovenkasten.' } },
+  { id: 'kitchen_14', file: 'kitchen_14.jpg', category: 'kitchen', orientation: 'wide' },
   // Remaining photos — reachable via "view all" and in the slideshow.
   { id: 'kitchen_03', file: 'kitchen_03.jpg', category: 'kitchen', orientation: 'tall' },
   { id: 'kitchen_04', file: 'kitchen_04.jpg', category: 'kitchen', orientation: 'tall' },
@@ -103,18 +86,12 @@ const sources: Source[] = [
 
   // ── living_room (19) ─────────────────────────────────────────
   // Curated first 6: these are what the grid shows before "view all".
-  { id: 'living_room_10', file: 'living_room_10.jpg', category: 'living_room', orientation: 'wide',
-    // DRAFT caption — written from what is visible; owner to review/replace.
-    caption: { en: 'Media wall in slatted walnut with a backlit stone panel; floating cabinet with concealed LED strip underneath.',
-               nl: 'Mediawand in geribbeld notenhout met een verlicht steenpaneel; zwevend kastdeel met verborgen ledstrip eronder.' } },
+  { id: 'living_room_10', file: 'living_room_10.jpg', category: 'living_room', orientation: 'wide' },
   { id: 'living_room_13', file: 'living_room_13.jpg', category: 'living_room', orientation: 'tall' },
   { id: 'living_room_05', file: 'living_room_05.jpg', category: 'living_room', orientation: 'tall' },
   { id: 'living_room_06', file: 'living_room_06.jpg', category: 'living_room', orientation: 'tall' },
   { id: 'living_room_14', file: 'living_room_14.jpg', category: 'living_room', orientation: 'tall' },
-  { id: 'living_room_11', file: 'living_room_11.jpg', category: 'living_room', orientation: 'wide',
-    // DRAFT caption — written from what is visible; owner to review/replace.
-    caption: { en: 'Fitted dresser in painted shaker style: glazed upper cabinets, banks of drawers with cup handles, dark worktop and a sliding library ladder.',
-               nl: 'Ingebouwde kast in geschilderde shakerstijl: bovenkasten met glas, ladeblokken met komgrepen, donker werkblad en een verrijdbare ladder.' } },
+  { id: 'living_room_11', file: 'living_room_11.jpg', category: 'living_room', orientation: 'wide' },
   // Remaining photos — reachable via "view all" and in the slideshow.
   { id: 'living_room_01', file: 'living_room_01.jpg', category: 'living_room', orientation: 'wide' },
   { id: 'living_room_02', file: 'living_room_02.jpg', category: 'living_room', orientation: 'wide' },
@@ -132,18 +109,12 @@ const sources: Source[] = [
 
   // ── bedroom_wardrobe (13) ─────────────────────────────────────────
   // Curated first 6: these are what the grid shows before "view all".
-  { id: 'bedroom_wardrobe_06', file: 'bedroom_wardrobe_06.jpg', category: 'bedroom_wardrobe', orientation: 'wide',
-    // DRAFT caption — written from what is visible; owner to review/replace.
-    caption: { en: 'Walk-in wardrobe with black-framed glass doors and lit interior shelving, set against herringbone oak flooring.',
-               nl: 'Inloopkast met zwart omkaderde glazen deuren en verlichte binnenschappen, op visgraat eikenparket.' } },
+  { id: 'bedroom_wardrobe_06', file: 'bedroom_wardrobe_06.jpg', category: 'bedroom_wardrobe', orientation: 'wide' },
   { id: 'bedroom_wardrobe_01', file: 'bedroom_wardrobe_01.jpg', category: 'bedroom_wardrobe', orientation: 'tall' },
   { id: 'bedroom_wardrobe_05', file: 'bedroom_wardrobe_05.jpg', category: 'bedroom_wardrobe', orientation: 'tall' },
   { id: 'bedroom_wardrobe_09', file: 'bedroom_wardrobe_09.jpg', category: 'bedroom_wardrobe', orientation: 'tall' },
   { id: 'bedroom_wardrobe_02', file: 'bedroom_wardrobe_02.jpg', category: 'bedroom_wardrobe', orientation: 'tall' },
-  { id: 'bedroom_wardrobe_13', file: 'bedroom_wardrobe_13.jpg', category: 'bedroom_wardrobe', orientation: 'wide',
-    // DRAFT caption — written from what is visible; owner to review/replace.
-    caption: { en: 'Dressing room run combining fluted panel doors with black-framed glass fronts; perimeter LED cove above.',
-               nl: 'Kledingkamerwand met geribbelde paneeldeuren en zwart omkaderde glazen fronten; ledverlichting in de omlopende koof.' } },
+  { id: 'bedroom_wardrobe_13', file: 'bedroom_wardrobe_13.jpg', category: 'bedroom_wardrobe', orientation: 'wide' },
   // Remaining photos — reachable via "view all" and in the slideshow.
   { id: 'bedroom_wardrobe_03', file: 'bedroom_wardrobe_03.jpg', category: 'bedroom_wardrobe', orientation: 'wide' },
   { id: 'bedroom_wardrobe_04', file: 'bedroom_wardrobe_04.jpg', category: 'bedroom_wardrobe', orientation: 'tall' },
@@ -155,25 +126,16 @@ const sources: Source[] = [
 
   // ── bathroom (6) ─────────────────────────────────────────
   // Curated first 6: these are what the grid shows before "view all".
-  { id: 'bathroom_01', file: 'bathroom_01.jpg', category: 'bathroom', orientation: 'wide',
-    // DRAFT caption — written from what is visible; owner to review/replace.
-    caption: { en: 'Painted vanity with a framed drawer front and brass knob; the drawer box is solid oak with fitted dividers.',
-               nl: 'Geschilderd badmeubel met omlijst ladefront en messing knop; de ladebak is massief eiken met vaste vakverdeling.' } },
+  { id: 'bathroom_01', file: 'bathroom_01.jpg', category: 'bathroom', orientation: 'wide' },
   { id: 'bathroom_02', file: 'bathroom_02.jpg', category: 'bathroom', orientation: 'tall' },
   { id: 'bathroom_03', file: 'bathroom_03.jpg', category: 'bathroom', orientation: 'tall' },
   { id: 'bathroom_05', file: 'bathroom_05.jpg', category: 'bathroom', orientation: 'tall' },
   { id: 'bathroom_06', file: 'bathroom_06.jpg', category: 'bathroom', orientation: 'tall' },
-  { id: 'bathroom_04', file: 'bathroom_04.jpg', category: 'bathroom', orientation: 'wide',
-    // DRAFT caption — written from what is visible; owner to review/replace.
-    caption: { en: 'Double vanity with marble top and undermount basins; solid oak drawer boxes with hand-cut dovetail joints, on full-extension runners.',
-               nl: 'Dubbel badmeubel met marmeren blad en onderbouwwastafels; massief eiken ladebakken met handgemaakte zwaluwstaartverbindingen, op volledig uittrekbare geleiders.' } },
+  { id: 'bathroom_04', file: 'bathroom_04.jpg', category: 'bathroom', orientation: 'wide' },
 
   // ── hallway (6) ─────────────────────────────────────────
   // Curated first 6: these are what the grid shows before "view all".
-  { id: 'hallway_06', file: 'hallway_06.jpg', category: 'hallway', orientation: 'wide',
-    // DRAFT caption — written from what is visible; owner to review/replace.
-    caption: { en: 'Hallway with a slatted timber divider and a full-height fitted wardrobe in a soft neutral finish.',
-               nl: 'Hal met een houten lamellenscheidingswand en een vloer-tot-plafond inbouwkast in een zachte neutrale afwerking.' } },
+  { id: 'hallway_06', file: 'hallway_06.jpg', category: 'hallway', orientation: 'wide' },
   { id: 'hallway_03', file: 'hallway_03.jpg', category: 'hallway', orientation: 'tall' },
   { id: 'hallway_01', file: 'hallway_01.jpg', category: 'hallway', orientation: 'tall' },
   { id: 'hallway_02', file: 'hallway_02.jpg', category: 'hallway', orientation: 'tall' },
@@ -182,18 +144,12 @@ const sources: Source[] = [
 
   // ── office_reception (8) ─────────────────────────────────────────
   // Curated first 6: these are what the grid shows before "view all".
-  { id: 'office_reception_05', file: 'office_reception_05.jpg', category: 'office_reception', orientation: 'wide',
-    // DRAFT caption — written from what is visible; owner to review/replace.
-    caption: { en: 'Office storage wall in walnut and dark fluted panels, floor to ceiling, over herringbone flooring.',
-               nl: 'Kantoorkastenwand in noten en donkere geribbelde panelen, van vloer tot plafond, op visgraatvloer.' } },
+  { id: 'office_reception_05', file: 'office_reception_05.jpg', category: 'office_reception', orientation: 'wide' },
   { id: 'office_reception_01', file: 'office_reception_01.jpg', category: 'office_reception', orientation: 'tall' },
   { id: 'office_reception_06', file: 'office_reception_06.jpg', category: 'office_reception', orientation: 'tall' },
   { id: 'office_reception_08', file: 'office_reception_08.jpg', category: 'office_reception', orientation: 'tall' },
   { id: 'office_reception_03', file: 'office_reception_03.jpg', category: 'office_reception', orientation: 'tall' },
-  { id: 'office_reception_02', file: 'office_reception_02.jpg', category: 'office_reception', orientation: 'wide',
-    // DRAFT caption — written from what is visible; owner to review/replace.
-    caption: { en: 'Full-wall office storage in pale oak, floor to ceiling with handleless push-to-open fronts and concealed hinges.',
-               nl: 'Volledige kantoorkastenwand in licht eiken, vloer tot plafond met greeploze push-to-open fronten en verdekte scharnieren.' } },
+  { id: 'office_reception_02', file: 'office_reception_02.jpg', category: 'office_reception', orientation: 'wide' },
   // Remaining photos — reachable via "view all" and in the slideshow.
   { id: 'office_reception_04', file: 'office_reception_04.jpg', category: 'office_reception', orientation: 'wide' },
   { id: 'office_reception_07', file: 'office_reception_07.jpg', category: 'office_reception', orientation: 'tall' },
@@ -220,7 +176,6 @@ export const photos: Photo[] = sources.map((s) => {
     category: s.category,
     orientation: s.orientation,
     alt: makeAlt(s.category, counters[s.category], s.description),
-    caption: s.caption,
   };
 });
 
@@ -233,3 +188,15 @@ export const categoryOrder: PhotoCategory[] = [
   'bathroom',
   'office_reception',
 ];
+
+/*
+ * Categories that actually contain photos, in display order.
+ *
+ * Deliberately NOT categoryOrder itself: that list carries every category the
+ * type allows, including ones with no photos yet (dressing_room today). The
+ * gallery and the "categories" figure in the About stats must both count what
+ * a visitor can really see, otherwise the number drifts from the work again.
+ */
+export const populatedCategories: PhotoCategory[] = categoryOrder.filter((cat) =>
+  photos.some((p) => p.category === cat)
+);

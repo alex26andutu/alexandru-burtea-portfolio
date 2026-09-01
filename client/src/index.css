@@ -871,10 +871,19 @@
   .showcase-ctrl-btn:hover { background: rgba(0,0,0,0.65); }
 
   /* When ctrl-btn has a text label (grid topbar filter) */
-  .showcase-ctrl-btn:has(.portfolio-grid-filter-label) {
+  .showcase-ctrl-btn:has(.portfolio-grid-filter-label),
+  .showcase-ctrl-btn.portfolio-view-toggle {
     width: auto;
     padding: 0 0.75rem;
     border-radius: 9999px;
+  }
+  /* The label is what makes the slideshow findable — never hide it. */
+  .portfolio-view-toggle-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
   }
 
   /* ── Filter dropdown ── */
@@ -1020,22 +1029,8 @@
   }
   .portfolio-grid-cell:hover .portfolio-grid-img { transform: scale(1.03); }
 
-  /* Caption on wide shots — gradient belongs to the caption, so a photo
-     without one shows no bar at all. */
-  .portfolio-grid-caption {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    padding: 2.25rem 3.25rem 0.7rem 0.85rem;
-    font-family: var(--font-body);
-    font-size: 0.8125rem;
-    line-height: 1.35;
-    color: #fff;
-    text-align: left;
-    background: linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0));
-    pointer-events: none;
-  }
-  /* Sequence number — text-shadow instead of a plate, so it stays readable
-     on cells that have no gradient. */
+  /* Sequence number — text-shadow rather than a plate or gradient, so it
+     stays readable over any photo without adding an overlay. */
   .portfolio-grid-seq {
     position: absolute;
     right: 0.7rem; bottom: 0.6rem;

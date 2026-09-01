@@ -8,6 +8,14 @@ import { useLanguage } from '@/contexts/LanguageContext';
 export default function Footer() {
   const { t } = useLanguage();
 
+  /*
+   * The copyright year is resolved when the page runs, not written into the
+   * translation strings — otherwise it silently goes stale the moment the year
+   * turns and nobody redeploys. The prerendered HTML carries the build-year;
+   * the browser re-renders on mount and corrects it.
+   */
+  const year = new Date().getFullYear();
+
   return (
     <footer className="bg-surface-deeper text-on-deep py-10 md:py-12">
       <div className="container">
@@ -17,7 +25,9 @@ export default function Footer() {
             <span className="text-on-deep/25" aria-hidden="true">·</span>
             <span className="text-on-deep/70 text-xs">{t.footer.tagline}</span>
           </div>
-          <p className="text-on-deep/70 text-xs">{t.footer.text}</p>
+          <p className="text-on-deep/70 text-xs">
+            {t.footer.text.replace('{year}', String(year))}
+          </p>
         </div>
       </div>
     </footer>
