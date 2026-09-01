@@ -168,8 +168,8 @@ export default function Lightbox({
         onClick={(e) => e.stopPropagation()}
       >
         <picture>
-          <source srcSet={photo.src.replace(/\.jpg$/, '.avif')} type="image/avif" />
-          <source srcSet={photo.src.replace(/\.jpg$/, '.webp')} type="image/webp" />
+          <source srcSet={`${photo.base}.avif`} type="image/avif" />
+          <source srcSet={`${photo.base}.webp`} type="image/webp" />
           <img
             src={photo.src}
             alt={photo.alt}

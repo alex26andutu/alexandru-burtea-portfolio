@@ -970,14 +970,16 @@
   }
   /* Dropdown in grid mode uses same dark style — no override needed */
 
+  /* 1 column mobile → 2 tablet → 4 desktop. Cell span/ratio comes from the
+     photo's own orientation, so nothing is cropped to fit a uniform tile. */
   .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 0.5rem;
     grid-auto-flow: dense;
   }
   @media (min-width: 640px) {
-    .portfolio-grid { grid-template-columns: repeat(3, 1fr); gap: 0.625rem; }
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 0.625rem; }
   }
   @media (min-width: 1024px) {
     .portfolio-grid { grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
@@ -985,7 +987,6 @@
 
   .portfolio-grid-cell {
     position: relative;
-    aspect-ratio: 4 / 3;
     overflow: hidden;
     background: var(--muted);
     cursor: zoom-in;
@@ -995,10 +996,18 @@
     border-radius: 2px;
     transition: opacity 0.2s ease;
   }
-  /* Every 7th cell spans 2 columns (accent tile) */
-  .portfolio-grid-cell:nth-child(7n) {
-    grid-column: span 2;
-    aspect-ratio: 8 / 3;
+  /* Portrait / detail shot — one column, upright. */
+  .portfolio-grid-cell.is-tall {
+    aspect-ratio: 3 / 4;
+    grid-column: span 1;
+  }
+  /* Landscape shot — two columns on multi-column layouts. */
+  .portfolio-grid-cell.is-wide {
+    aspect-ratio: 3 / 2;
+    grid-column: span 1;
+  }
+  @media (min-width: 640px) {
+    .portfolio-grid-cell.is-wide { grid-column: span 2; }
   }
   .portfolio-grid-cell:hover { opacity: 0.88; }
 
@@ -1010,6 +1019,125 @@
     transition: transform 0.4s ease;
   }
   .portfolio-grid-cell:hover .portfolio-grid-img { transform: scale(1.03); }
+
+  /* Caption on wide shots — gradient belongs to the caption, so a photo
+     without one shows no bar at all. */
+  .portfolio-grid-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 2.25rem 3.25rem 0.7rem 0.85rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    color: #fff;
+    text-align: left;
+    background: linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0));
+    pointer-events: none;
+  }
+  /* Sequence number — text-shadow instead of a plate, so it stays readable
+     on cells that have no gradient. */
+  .portfolio-grid-seq {
+    position: absolute;
+    right: 0.7rem; bottom: 0.6rem;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.85);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.55);
+    pointer-events: none;
+  }
+
+  /* ── Category chips (grid view) ─────────────────────────────────────── */
+  .portfolio-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .portfolio-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 9999px;
+    background: var(--muted);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .portfolio-chip:hover {
+    background: color-mix(in oklch, var(--muted) 80%, var(--foreground) 20%);
+  }
+  .portfolio-chip.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+  .portfolio-chip.active:hover {
+    background: color-mix(in oklch, var(--primary) 85%, transparent);
+  }
+  .portfolio-chip-count {
+    font-size: 0.68rem;
+    opacity: 0.65;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Per-room group heading ─────────────────────────────────────────── */
+  .portfolio-group { display: flex; flex-direction: column; gap: 0.75rem; }
+  /* Extra breathing room between rooms, without loosening the topbar/chips */
+  .portfolio-group + .portfolio-group { margin-top: 1.25rem; }
+  .portfolio-group-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .portfolio-group-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+    white-space: nowrap;
+  }
+  /* Thin rule filling whatever space is left after the heading */
+  .portfolio-group-rule {
+    flex: 1 1 auto;
+    height: 1px;
+    background: var(--border);
+  }
+  .portfolio-group-count {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .portfolio-group-viewall {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--primary);
+    white-space: nowrap;
+    transition: opacity 0.15s;
+  }
+  .portfolio-group-viewall:hover { opacity: 0.7; }
+  @media (max-width: 480px) {
+    /* Count is redundant next to the chips on a narrow screen */
+    .portfolio-group-count { display: none; }
+  }
 
   /* Soft edge fade for horizontal carousels on mobile (hint there's more) */
   .carousel-fade {

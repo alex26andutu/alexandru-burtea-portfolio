@@ -64,6 +64,9 @@ interface Translations {
     play: string;
     photos: string;
     all_work: string;
+    view_all: string;
+    /** Joins a shown/total pair, e.g. "6 of 17" / "6 van 17". */
+    count_of: string;
     categories: Record<string, string>;
   };
   process: {
@@ -154,6 +157,8 @@ const translations: Record<Language, Translations> = {
       play: 'Resume slideshow',
       photos: 'photos',
       all_work: 'All work',
+      view_all: 'View all',
+      count_of: 'of',
       categories: {
         all: 'All',
         kitchen: 'Kitchens',
@@ -281,6 +286,8 @@ const translations: Record<Language, Translations> = {
       play: 'Diavoorstelling hervatten',
       photos: 'foto\'s',
       all_work: 'Alle projecten',
+      view_all: 'Bekijk alles',
+      count_of: 'van',
       categories: {
         all: 'Alles',
         kitchen: 'Keukens',

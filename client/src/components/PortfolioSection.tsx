@@ -3,14 +3,19 @@
  * Portfolio: Cinematic slideshow (default) + grid view toggle + category filter.
  *
  * UI controls are discreet — hidden until the stage is hovered, then fade in.
+ * Photo order is fixed: whatever photos.ts defines. A returning visitor sees
+ * the same sequence, so the work can be curated deliberately.
+ *
  * Slideshow behavior:
- *  - Photos shuffled once per page load (or filter change), advance sequentially.
- *  - Auto-advance every SLIDE_DURATION ms with progress bar.
+ *  - Advances sequentially; auto-advance is opt-in via the Slideshow button.
  *  - Pause on hover/focus/manual/tab-hidden/reduced-motion.
  *  - Click stage → lightbox. Keyboard: ← / → navigate, Space pause, Enter lightbox.
  *  - Next image preloaded.
  * Grid behavior:
- *  - Masonry-style CSS grid of all filtered photos, click → lightbox.
+ *  - CSS grid, 4/2/1 columns. Each photo keeps its true orientation:
+ *    'wide' spans 2 columns at 3/2, 'tall' spans 1 at 3/4 — no cropping.
+ *  - With no filter, photos are grouped per room with a heading and a
+ *    "view all" link; with a filter, one flat ungrouped grid.
  * Persistence: view + filter saved to localStorage.
  */
 
@@ -23,29 +28,22 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
 } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { photos, type PhotoCategory, categoryOrder } from '@/lib/photos';
+import { photos, type Photo, type PhotoCategory, categoryOrder } from '@/lib/photos';
 import Lightbox from './Lightbox';
 
 const SLIDE_DURATION_MS = 5000;
 const TRANSITION_MS = 900;
 const MIN_FILTER_COUNT = 5;
+/** Photos shown per room before "view all" opens the full set. */
+const PREVIEW_PER_CATEGORY = 6;
 const LS_VIEW = 'portfolio_view';
 const LS_FILTER = 'portfolio_filter';
 
 type ViewMode = 'slideshow' | 'grid';
 type Filter = PhotoCategory | 'all';
 
-function shuffle<T>(arr: readonly T[]): T[] {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
 export default function PortfolioSection() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   // ── Persistent state ──────────────────────────────────────────────────
   const [viewMode, setViewMode] = useState<ViewMode>(() => {
@@ -58,11 +56,45 @@ export default function PortfolioSection() {
   useEffect(() => { try { localStorage.setItem(LS_VIEW, viewMode); } catch {} }, [viewMode]);
   useEffect(() => { try { localStorage.setItem(LS_FILTER, activeFilter); } catch {} }, [activeFilter]);
 
-  // ── Filtered + shuffled photos ────────────────────────────────────────
-  const filteredPhotos = useMemo(() => {
-    const base = activeFilter === 'all' ? photos : photos.filter(p => p.category === activeFilter);
-    return shuffle(base);
+  // ── Filtered photos, in the order defined in photos.ts ────────────────
+  const filteredPhotos = useMemo(
+    () => (activeFilter === 'all' ? photos : photos.filter(p => p.category === activeFilter)),
+    [activeFilter]
+  );
+
+  /*
+   * Grid grouping. With no filter the grid is split per room, each showing at
+   * most PREVIEW_PER_CATEGORY photos; with a filter it is one flat grid.
+   *
+   * `offset` is the group's start index inside gridPhotos — the flat list of
+   * exactly what the grid renders, in render order. Cells pass
+   * `offset + i` to the lightbox and the lightbox walks gridPhotos, so the
+   * opened photo is always the clicked one and prev/next stay inside the set
+   * the visitor can actually see. Deriving both from one array is what keeps
+   * them in sync; never index the lightbox into `photos` directly.
+   */
+  const gridGroups = useMemo(() => {
+    if (activeFilter !== 'all') return null;
+    let offset = 0;
+    const groups = [];
+    for (const category of categoryOrder) {
+      const all = photos.filter(p => p.category === category);
+      if (all.length === 0) continue;
+      const shown = all.slice(0, PREVIEW_PER_CATEGORY);
+      groups.push({ category, shown, total: all.length, offset });
+      offset += shown.length;
+    }
+    return groups;
   }, [activeFilter]);
+
+  /** Exactly what the grid renders, flattened in render order. */
+  const gridPhotos = useMemo(
+    () => (gridGroups ? gridGroups.flatMap(g => g.shown) : filteredPhotos),
+    [gridGroups, filteredPhotos]
+  );
+
+  // The lightbox walks whichever list the visitor is looking at.
+  const lightboxPhotos = viewMode === 'grid' ? gridPhotos : filteredPhotos;
 
   // Categories with enough photos for the filter dropdown
   const filterableCategories = useMemo(() => {
@@ -199,6 +231,35 @@ export default function PortfolioSection() {
     }
   }, []);
 
+  /*
+   * One grid cell. `index` must be the photo's position in gridPhotos —
+   * that is what the lightbox is handed, so a wrong value here opens the
+   * wrong photo. Grouped sections pass group.offset + i for this reason.
+   */
+  const renderCell = (photo: Photo, index: number) => {
+    const isWide = photo.orientation === 'wide';
+    // Captions are owner-written and optional; blank ones render nothing at
+    // all rather than an empty gradient bar.
+    const caption = isWide ? photo.caption?.[language]?.trim() : '';
+    return (
+      <button
+        key={photo.id}
+        type="button"
+        className={`portfolio-grid-cell ${isWide ? 'is-wide' : 'is-tall'}`}
+        onClick={() => setLightboxIndex(index)}
+        aria-label={photo.alt}
+      >
+        <picture>
+          <source srcSet={`${photo.base}.avif`} type="image/avif" />
+          <source srcSet={`${photo.base}.webp`} type="image/webp" />
+          <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" className="portfolio-grid-img" />
+        </picture>
+        {caption && <span className="portfolio-grid-caption">{caption}</span>}
+        <span className="portfolio-grid-seq">{String(index + 1).padStart(2, '0')}</span>
+      </button>
+    );
+  };
+
   const activePhoto = filteredPhotos[activeIdx];
   const leavingPhoto = leavingIdx !== null ? filteredPhotos[leavingIdx] : null;
   const progressKey = `${activeFilter}-${activeIdx}`;
@@ -238,8 +299,8 @@ export default function PortfolioSection() {
               {/* Leaving slide */}
               {leavingPhoto && (
                 <picture key={`leaving-${leavingPhoto.id}`} className="showcase-slide leaving" aria-hidden="true">
-                  <source srcSet={leavingPhoto.src.replace(/\.jpg$/, '.avif')} type="image/avif" />
-                  <source srcSet={leavingPhoto.src.replace(/\.jpg$/, '.webp')} type="image/webp" />
+                  <source srcSet={`${leavingPhoto.base}.avif`} type="image/avif" />
+                  <source srcSet={`${leavingPhoto.base}.webp`} type="image/webp" />
                   <img src={leavingPhoto.src} alt="" className="showcase-picture-img" draggable={false} decoding="async" />
                 </picture>
               )}
@@ -247,8 +308,8 @@ export default function PortfolioSection() {
               {/* Active slide */}
               {activePhoto && (
                 <picture key={`active-${activePhoto.id}`} className="showcase-slide active">
-                  <source srcSet={activePhoto.src.replace(/\.jpg$/, '.avif')} type="image/avif" />
-                  <source srcSet={activePhoto.src.replace(/\.jpg$/, '.webp')} type="image/webp" />
+                  <source srcSet={`${activePhoto.base}.avif`} type="image/avif" />
+                  <source srcSet={`${activePhoto.base}.webp`} type="image/webp" />
                   <img src={activePhoto.src} alt={activePhoto.alt} className="showcase-picture-img" draggable={false} decoding="async" />
                 </picture>
               )}
@@ -389,8 +450,8 @@ export default function PortfolioSection() {
                   type="button"
                   className="showcase-ctrl-btn active"
                   onClick={() => setViewMode('slideshow')}
-                  aria-label="Switch to slideshow view"
-                  title="Switch to slideshow view"
+                  aria-label={t.portfolio.pause}
+                  title={t.portfolio.pause}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -398,62 +459,69 @@ export default function PortfolioSection() {
                   </svg>
                 </button>
 
-                <div ref={filterRef} style={{ position: 'relative' }} onKeyDown={onDropdownKeyDown}>
-                  <button
-                    ref={filterBtnRef}
-                    type="button"
-                    className={`showcase-ctrl-btn ${activeFilter !== 'all' ? 'active' : ''}`}
-                    onClick={() => setFilterOpen(o => !o)}
-                    aria-label="Filter by category"
-                    aria-expanded={filterOpen}
-                    aria-haspopup="menu"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <line x1="4" y1="6" x2="20" y2="6" />
-                      <line x1="8" y1="12" x2="16" y2="12" />
-                      <line x1="11" y1="18" x2="13" y2="18" />
-                    </svg>
-                    {activeFilter !== 'all' && (
-                      <span className="portfolio-grid-filter-label">{t.portfolio.categories[activeFilter as PhotoCategory]}</span>
-                    )}
-                  </button>
-
-                  {filterOpen && (
-                    <div className="showcase-dropdown" role="menu" aria-label="Filter by category">
-                      <button type="button" role="menuitem" aria-current={activeFilter === 'all'} className={`showcase-dropdown-item ${activeFilter === 'all' ? 'active' : ''}`} onClick={() => selectFilter('all')}>
-                        <span>{t.portfolio.all_work}</span><span className="showcase-dropdown-count">{photos.length}</span>
-                      </button>
-                      {filterableCategories.map(cat => (
-                        <button key={cat} type="button" role="menuitem" aria-current={activeFilter === cat} className={`showcase-dropdown-item ${activeFilter === cat ? 'active' : ''}`} onClick={() => selectFilter(cat)}>
-                          <span>{t.portfolio.categories[cat]}</span><span className="showcase-dropdown-count">{totalByCategory[cat] ?? 0}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <span className="portfolio-grid-count">{filteredPhotos.length} {t.portfolio.photos}</span>
+                <span className="portfolio-grid-count">{gridPhotos.length} {t.portfolio.photos}</span>
               </div>
 
-              {/* Grid */}
-              <div className="portfolio-grid" role="list" aria-label="Portfolio photos">
-                {filteredPhotos.map((photo, i) => (
+              {/* Category chips — the breadth of rooms is a selling point, so
+                  it is spelled out rather than hidden behind an icon. */}
+              <div className="portfolio-chips">
+                <button
+                  type="button"
+                  className={`portfolio-chip ${activeFilter === 'all' ? 'active' : ''}`}
+                  aria-pressed={activeFilter === 'all'}
+                  onClick={() => selectFilter('all')}
+                >
+                  {t.portfolio.all_work}
+                  <span className="portfolio-chip-count">{photos.length}</span>
+                </button>
+                {filterableCategories.map(cat => (
                   <button
-                    key={photo.id}
+                    key={cat}
                     type="button"
-                    role="listitem"
-                    className="portfolio-grid-cell"
-                    onClick={() => setLightboxIndex(i)}
-                    aria-label={photo.alt}
+                    className={`portfolio-chip ${activeFilter === cat ? 'active' : ''}`}
+                    aria-pressed={activeFilter === cat}
+                    onClick={() => selectFilter(cat)}
                   >
-                    <picture>
-                      <source srcSet={photo.src.replace(/\.jpg$/, '.avif')} type="image/avif" />
-                      <source srcSet={photo.src.replace(/\.jpg$/, '.webp')} type="image/webp" />
-                      <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" className="portfolio-grid-img" />
-                    </picture>
+                    {t.portfolio.categories[cat]}
+                    <span className="portfolio-chip-count">{totalByCategory[cat] ?? 0}</span>
                   </button>
                 ))}
               </div>
+
+              {gridGroups ? (
+                /* Unfiltered: a section per room, capped at PREVIEW_PER_CATEGORY */
+                gridGroups.map(group => (
+                  <section key={group.category} className="portfolio-group">
+                    <header className="portfolio-group-head">
+                      <h3 className="portfolio-group-title font-display">
+                        {t.portfolio.categories[group.category]}
+                      </h3>
+                      <span className="portfolio-group-rule" aria-hidden="true" />
+                      <span className="portfolio-group-count">
+                        {group.shown.length} {t.portfolio.count_of} {group.total}
+                      </span>
+                      {group.total > group.shown.length && (
+                        <button
+                          type="button"
+                          className="portfolio-group-viewall"
+                          onClick={() => selectFilter(group.category)}
+                        >
+                          {t.portfolio.view_all}
+                          <span aria-hidden="true">→</span>
+                        </button>
+                      )}
+                    </header>
+                    <div className="portfolio-grid">
+                      {group.shown.map((photo, i) => renderCell(photo, group.offset + i))}
+                    </div>
+                  </section>
+                ))
+              ) : (
+                /* Filtered: one flat grid of that room's photos */
+                <div className="portfolio-grid">
+                  {gridPhotos.map((photo, i) => renderCell(photo, i))}
+                </div>
+              )}
             </div>
           )}
 
@@ -469,11 +537,11 @@ export default function PortfolioSection() {
       {/* Lightbox */}
       {lightboxIndex !== null && (
         <Lightbox
-          photos={filteredPhotos}
+          photos={lightboxPhotos}
           currentIndex={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
           onPrev={() => setLightboxIndex(i => (i !== null && i > 0 ? i - 1 : i))}
-          onNext={() => setLightboxIndex(i => (i !== null && i < filteredPhotos.length - 1 ? i + 1 : i))}
+          onNext={() => setLightboxIndex(i => (i !== null && i < lightboxPhotos.length - 1 ? i + 1 : i))}
         />
       )}
     </section>
