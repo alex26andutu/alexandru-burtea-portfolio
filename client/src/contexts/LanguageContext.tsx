@@ -33,7 +33,6 @@ interface Translations {
     process: string;
     contact: string;
     cv: string;
-    available: string;
     language_label: string;
   };
   hero: {
@@ -42,7 +41,6 @@ interface Translations {
     subtitle: string;
     cta_portfolio: string;
     cta_contact: string;
-    available_from: string;
     scroll: string;
     /** Alt for the hero photo. Describes what is pictured only — no material
      *  or construction claims. */
@@ -94,15 +92,12 @@ interface Translations {
     heading_line2: string;
     subheading: string;
     location: string;
-    available_from: string;
     email_label: string;
+    /** One line covers both: the number is phone and WhatsApp alike. */
     phone_label: string;
     phone_note: string;
-    whatsapp_label: string;
-    whatsapp_note: string;
     linkedin_label: string;
     download_cv: string;
-    download_cover: string;
     form_heading: string;
     form_name: string;
     form_email: string;
@@ -130,7 +125,6 @@ const translations: Record<Language, Translations> = {
       process: 'Process',
       contact: 'Contact',
       cv: 'Download CV',
-      available: 'Available for hire',
       language_label: 'Language:',
     },
     hero: {
@@ -139,7 +133,6 @@ const translations: Record<Language, Translations> = {
       subtitle: '10+ years of custom furniture craftsmanship. Precision, quality, and design — built to last.',
       cta_portfolio: 'View My Work',
       cta_contact: 'Get in Touch',
-      available_from: 'Available from 30 September 2026',
       scroll: 'Scroll',
       photo_alt: 'Dining area with a slatted room divider and built-in display niches',
     },
@@ -152,7 +145,7 @@ const translations: Record<Language, Translations> = {
       p2: 'I work the full process: client brief, design in SketchUp, production drawings, workshop production and on-site installation. Sawing, edge-banding, veneering, finishing and measuring on site — I know every step, because I have done all of them myself.',
       p3: 'I started in a workshop in Romania, spent three years in furniture and joinery in England, then ran my own interior fit-out business, and most recently worked as a kitchen installer for XXXLutz in Germany. Working to tight installation plans and Western European quality standards is everyday practice for me.',
       p4: 'I have built furniture for private clients and companies in England, the Netherlands, Germany and Romania.',
-      p5: 'I am now looking for a permanent position in a professional workshop, where craftsmanship counts and where I can put both my workshop and installation experience to use.',
+      p5: 'I now work in a workshop in the Netherlands, building interiors for yachts.',
       stats: [
         { value: '10+', label: 'Years of Experience' },
         { value: '4', label: 'Years running own workshop' },
@@ -232,17 +225,13 @@ const translations: Record<Language, Translations> = {
       heading: 'Contact',
       heading_line1: 'Let\'s work',
       heading_line2: 'together.',
-      subheading: 'Available for relocation to the Netherlands. Open to full-time employment in a professional workshop.',
-      location: 'Romanian EU citizen — no work permit required · Willing to relocate to the Netherlands',
-      available_from: 'Available from 30 September 2026',
+      subheading: "Based in the Netherlands. Get in touch if you'd like to talk about furniture work.",
+      location: 'Romanian EU citizen, living and working in the Netherlands',
       email_label: 'Email',
-      phone_label: 'Phone',
+      phone_label: 'Phone / WhatsApp',
       phone_note: 'Call or message me anytime',
-      whatsapp_label: 'WhatsApp',
-      whatsapp_note: 'Message or call me anytime',
       linkedin_label: 'LinkedIn',
       download_cv: 'Download CV',
-      download_cover: 'Download Cover Letter',
       form_heading: 'Or send a message',
       form_name: 'Your name',
       form_email: 'Email address',
@@ -267,7 +256,6 @@ const translations: Record<Language, Translations> = {
       process: 'Werkwijze',
       contact: 'Contact',
       cv: 'CV downloaden',
-      available: 'Beschikbaar voor werk',
       language_label: 'Taal:',
     },
     hero: {
@@ -276,7 +264,6 @@ const translations: Record<Language, Translations> = {
       subtitle: '10+ jaar ervaring in maatwerk meubilair. Precisie, kwaliteit en design — gemaakt om lang mee te gaan.',
       cta_portfolio: 'Bekijk mijn werk',
       cta_contact: 'Neem contact op',
-      available_from: 'Beschikbaar vanaf 30 september 2026',
       scroll: 'Scroll',
       photo_alt: 'Eethoek met een lamellenscheidingswand en ingebouwde nissen',
     },
@@ -289,7 +276,7 @@ const translations: Record<Language, Translations> = {
       p2: 'Ik werk het hele traject: klantgesprek, ontwerp in SketchUp, werktekening, productie in de werkplaats en montage op locatie. Zagen, kantenlijmen, fineren, afwerken en inmeten op locatie — ik ken elke stap, omdat ik ze allemaal zelf heb gedaan.',
       p3: 'Ik begon in de werkplaats in Roemenië, werkte drie jaar in de meubel- en timmerbranche in Engeland, had daarna mijn eigen interieurbouwbedrijf, en werkte als laatste als keukenmonteur bij XXXLutz in Duitsland. Werken volgens strakke montageplannen en West-Europese kwaliteitsnormen is voor mij dagelijkse praktijk.',
       p4: 'Ik heb meubilair gemaakt voor particulieren en bedrijven in Engeland, Nederland, Duitsland en Roemenië.',
-      p5: 'Ik zoek nu een vaste plek in een professionele werkplaats, bij een bedrijf waar vakmanschap telt en waar ik mijn ervaring in werkplaats én montage kan inzetten.',
+      p5: 'Ik werk nu in een werkplaats in Nederland, aan interieurs voor jachten.',
       stats: [
         { value: '10+', label: 'Jaar ervaring' },
         { value: '4', label: 'Jaar eigen werkplaats' },
@@ -369,17 +356,13 @@ const translations: Record<Language, Translations> = {
       heading: 'Contact',
       heading_line1: 'Laten we',
       heading_line2: 'samenwerken.',
-      subheading: 'Beschikbaar voor verhuizing naar Nederland. Open voor een vaste baan in een professionele werkplaats.',
-      location: 'Roemeense EU-burger — geen werkvergunning nodig · Bereid te verhuizen naar Nederland',
-      available_from: 'Beschikbaar vanaf 30 september 2026',
+      subheading: 'Gevestigd in Nederland. Neem gerust contact op als je over meubelwerk wilt praten.',
+      location: 'Roemeense EU-burger, woonachtig en werkzaam in Nederland',
       email_label: 'E-mail',
-      phone_label: 'Telefoon',
+      phone_label: 'Telefoon / WhatsApp',
       phone_note: 'Bel of stuur een bericht — altijd welkom',
-      whatsapp_label: 'WhatsApp',
-      whatsapp_note: 'Bericht of bel — altijd welkom',
       linkedin_label: 'LinkedIn',
       download_cv: 'CV downloaden',
-      download_cover: 'Motivatiebrief downloaden',
       form_heading: 'Of stuur een bericht',
       form_name: 'Uw naam',
       form_email: 'E-mailadres',

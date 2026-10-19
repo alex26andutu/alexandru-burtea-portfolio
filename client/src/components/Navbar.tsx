@@ -74,19 +74,6 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            {/* Availability pill — appears on scroll */}
-            <a
-              href="#contact"
-              aria-label={t.nav.available}
-              className={`inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium tracking-wide transition-all border ${
-                scrolled
-                  ? 'border-primary/40 text-primary hover:bg-primary/10 opacity-100 translate-y-0'
-                  : 'border-white/30 text-white/85 hover:bg-white/10 opacity-100 translate-y-0'
-              }`}
-            >
-              <span className={`availability-dot ${scrolled ? '' : 'on-image'}`} />
-              {t.nav.available}
-            </a>
 
             {navLinks.map((link) => (
               <a
@@ -177,14 +164,6 @@ export default function Navbar() {
           id="mobile-menu"
           className="md:hidden bg-background border-t border-border px-6 py-6 flex flex-col gap-5"
         >
-          <a
-            href="#contact"
-            onClick={() => setMenuOpen(false)}
-            className="inline-flex items-center gap-2 self-start px-3 py-1.5 text-xs font-medium tracking-wide border border-primary/40 text-primary hover:bg-primary/10 transition-colors"
-          >
-            <span className="availability-dot" />
-            {t.nav.available}
-          </a>
 
           {navLinks.map((link) => (
             <a

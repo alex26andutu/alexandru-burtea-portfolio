@@ -45,15 +45,9 @@ export default function HeroSection() {
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light text-white leading-none tracking-tight mb-6">
             {t.hero.name}
           </h1>
-          <p className="text-white/85 text-base md:text-lg font-light leading-relaxed mb-6 max-w-lg">
+          <p className="text-white/85 text-base md:text-lg font-light leading-relaxed mb-10 max-w-lg">
             {t.hero.subtitle}
           </p>
-          <div className="flex items-center gap-2 mb-8">
-            <span className="availability-dot on-image" />
-            <span className="text-white/80 text-xs font-medium tracking-[0.15em] uppercase">
-              {t.hero.available_from}
-            </span>
-          </div>
           <div className="flex flex-wrap gap-4">
             <a
               href="#portfolio"

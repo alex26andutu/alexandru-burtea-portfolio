@@ -437,31 +437,6 @@
     pointer-events: none;
   }
 
-  /* Availability dot — soft pulse */
-  @keyframes availabilityPulse {
-    0%, 100% { box-shadow: 0 0 0 0 var(--primary); }
-    50%      { box-shadow: 0 0 0 4px color-mix(in oklch, var(--primary) 35%, transparent); }
-  }
-  .availability-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 9999px;
-    background: var(--primary);
-    flex-shrink: 0;
-    animation: availabilityPulse 2.4s ease-in-out infinite;
-  }
-  .availability-dot.on-image {
-    /* Brighter when over the hero photo */
-    background: #4ade80;
-  }
-  @keyframes availabilityPulseImage {
-    0%, 100% { box-shadow: 0 0 0 0 #4ade80; }
-    50%      { box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.4); }
-  }
-  .availability-dot.on-image {
-    animation: availabilityPulseImage 2.4s ease-in-out infinite;
-  }
-
   /* Lightbox zoom helpers */
   .lightbox-img {
     cursor: zoom-in;
