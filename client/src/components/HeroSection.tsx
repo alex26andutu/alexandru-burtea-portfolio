@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { populatedCategories } from '@/lib/photos';
 
@@ -14,6 +15,23 @@ const HERO_BASE = '/images/hero_main';
  */
 export default function HeroSection() {
   const { t } = useLanguage();
+
+  /*
+   * The dimension under "op maat." is honest: it reads the phrase's real
+   * on-screen width (CSS px → mm at 96 dpi), so the number changes with the
+   * screen and the language instead of being made up.
+   */
+  const emRef = useRef<HTMLSpanElement>(null);
+  const [mm, setMm] = useState(0);
+  useEffect(() => {
+    const el = emRef.current;
+    if (!el) return;
+    const measure = () => setMm(Math.round((el.getBoundingClientRect().width * 25.4) / 96));
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [t]);
   return (
     <section className="hero-x relative w-full h-screen min-h-[680px] max-h-[1000px] overflow-hidden">
       <picture>
@@ -43,12 +61,6 @@ export default function HeroSection() {
       <div className="hero-x-shade absolute inset-0" />
       <div className="hero-x-grid absolute inset-0" aria-hidden="true" />
 
-      {/* Dimension lines — desktop only */}
-      <div className="hero-x-dims hidden lg:block" aria-hidden="true">
-        <span className="dim-h"><i>2400 mm</i></span>
-        <span className="dim-v"><i>2600 mm</i></span>
-      </div>
-
       <div className="relative z-10 h-full container flex flex-col justify-end pb-14 md:pb-20 pt-28">
         <div className="max-w-4xl">
           <p className="hero-x-tag fade-up" style={{ animationDelay: '0.05s' }}>
@@ -59,7 +71,16 @@ export default function HeroSection() {
             {t.hero.name}
           </h1>
           <p className="fade-up font-display text-3xl md:text-5xl font-light text-white/90 mt-4 md:mt-5" style={{ animationDelay: '0.25s' }}>
-            {t.hero.tagline_lead} <em className="hero-x-em">{t.hero.tagline_em}</em>
+            {t.hero.tagline_lead}{' '}
+            <span ref={emRef} className="measure-wrap">
+              <em className="hero-x-em">{t.hero.tagline_em}</em>
+              <span className="measure" aria-hidden="true">
+                <span className="measure-ext l" />
+                <span className="measure-ext r" />
+                <span className="measure-line" />
+                {mm > 0 && <i className="measure-val">{mm} mm</i>}
+              </span>
+            </span>
           </p>
           <p className="fade-up text-white/70 text-base md:text-lg font-light leading-relaxed mt-6 max-w-lg" style={{ animationDelay: '0.35s' }}>
             {t.hero.subtitle}
