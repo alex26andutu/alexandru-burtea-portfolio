@@ -42,9 +42,8 @@ export default function Navbar() {
 
   // Color classes: when over hero (not scrolled) we stay light-on-image;
   // when scrolled we adopt theme tokens so dark mode works.
-  const surfaceClass = scrolled
-    ? 'bg-background/90 backdrop-blur-md shadow-[0_1px_0_var(--border)]'
-    : 'bg-gradient-to-b from-black/60 via-black/30 to-transparent';
+  // The bar floats as a frosted-glass panel; it firms up once scrolled.
+  const surfaceClass = scrolled ? 'glass-nav is-scrolled' : 'glass-nav';
 
   const logoClass = scrolled ? 'text-foreground' : 'text-white';
   const linkClass = scrolled
@@ -60,16 +59,17 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${surfaceClass}`}
+      className="fixed top-0 left-0 right-0 z-50 pt-3 md:pt-5"
     >
       <div className="container">
-        <nav className="flex items-center justify-between h-16 md:h-20" aria-label="Main navigation">
+        <nav className={`flex items-center justify-between h-14 md:h-16 px-4 md:px-6 rounded-2xl transition-all duration-300 ${surfaceClass}`} aria-label="Main navigation">
           {/* Logo / Name */}
           <a
             href="#"
+            aria-label="Alexandru Burtea"
             className={`font-display text-lg font-semibold tracking-tight transition-colors ${logoClass}`}
           >
-            Alexandru Burtea
+            A<span className="text-primary">.</span> Burtea
           </a>
 
           {/* Desktop nav */}
@@ -89,7 +89,7 @@ export default function Navbar() {
             <div
               role="group"
               aria-label="Language"
-              className={`flex items-center rounded-sm border text-xs font-medium overflow-hidden transition-colors ${langBorderClass}`}
+              className={`flex items-center rounded-lg border text-xs font-medium overflow-hidden transition-colors ${langBorderClass}`}
             >
               <button
                 type="button"
@@ -162,7 +162,7 @@ export default function Navbar() {
       {menuOpen && (
         <div
           id="mobile-menu"
-          className="md:hidden bg-background border-t border-border px-6 py-6 flex flex-col gap-5"
+          className="md:hidden glass-nav is-scrolled mx-3 mt-2 rounded-2xl px-6 py-6 flex flex-col gap-5"
         >
 
           {navLinks.map((link) => (
@@ -181,7 +181,7 @@ export default function Navbar() {
               <div
                 role="group"
                 aria-label="Language"
-                className="flex items-center rounded-sm border border-border text-xs font-medium overflow-hidden"
+                className="flex items-center rounded-lg border border-border text-xs font-medium overflow-hidden"
               >
                 <button
                   type="button"

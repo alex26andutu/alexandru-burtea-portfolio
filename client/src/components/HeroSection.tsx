@@ -1,28 +1,32 @@
 import { useLanguage } from '@/contexts/LanguageContext';
+import { populatedCategories } from '@/lib/photos';
 
 // Featured hero: custom dining room with slat divider + built-in shelving — self-hosted
 // Multiple formats (AVIF/WebP/JPG) + mobile variant for fastest LCP
 const HERO_BASE = '/images/hero_main';
 
+/*
+ * Hero — the name stays the headline; "Precisie, op maat." sits beneath it.
+ * The futuristic layer comes from the trade, not from neon: a faint
+ * technical-drawing grid over the photo, and dimension lines drawn across the
+ * furniture like an AutoCAD sheet. Both are decorative and hidden from
+ * assistive tech.
+ */
 export default function HeroSection() {
   const { t } = useLanguage();
   return (
-    <section className="relative w-full h-screen min-h-[600px] max-h-[1000px] overflow-hidden">
-      {/* <picture> with AVIF/WebP/JPG fallbacks + mobile srcset */}
+    <section className="hero-x relative w-full h-screen min-h-[680px] max-h-[1000px] overflow-hidden">
       <picture>
-        {/* AVIF — smallest, modern browsers (Chrome 85+, Safari 16+) */}
         <source
           type="image/avif"
           srcSet={`${HERO_BASE}-800.avif 800w, ${HERO_BASE}.avif 1600w`}
           sizes="100vw"
         />
-        {/* WebP — wider browser support */}
         <source
           type="image/webp"
           srcSet={`${HERO_BASE}-800.webp 800w, ${HERO_BASE}.webp 1600w`}
           sizes="100vw"
         />
-        {/* JPG fallback — universal */}
         {/* Described rather than decorative: this is a portfolio photo, so it
             carries content a screen-reader user should get. aria-hidden is
             deliberately absent — with it, the alt below would never be read. */}
@@ -33,45 +37,56 @@ export default function HeroSection() {
           height={1200}
           decoding="async"
           fetchPriority="high"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="hero-x-img absolute inset-0 w-full h-full object-cover"
         />
       </picture>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30" />
-      <div className="absolute bottom-0 left-0 right-0 container pb-16 md:pb-24">
-        <div className="max-w-2xl">
-          <p className="text-white/75 text-xs font-medium tracking-[0.2em] uppercase mb-4">
+      <div className="hero-x-shade absolute inset-0" />
+      <div className="hero-x-grid absolute inset-0" aria-hidden="true" />
+
+      {/* Dimension lines — desktop only */}
+      <div className="hero-x-dims hidden lg:block" aria-hidden="true">
+        <span className="dim-h"><i>2400 mm</i></span>
+        <span className="dim-v"><i>2600 mm</i></span>
+      </div>
+
+      <div className="relative z-10 h-full container flex flex-col justify-end pb-14 md:pb-20 pt-28">
+        <div className="max-w-4xl">
+          <p className="hero-x-tag fade-up" style={{ animationDelay: '0.05s' }}>
+            <span className="hero-x-tag-dot" aria-hidden="true" />
             {t.hero.title}
           </p>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light text-white leading-none tracking-tight mb-6">
+          <h1 className="fade-up font-display text-[3.2rem] sm:text-7xl lg:text-[6.25rem] xl:text-[6.75rem] font-light text-white leading-[0.92] tracking-tight mt-7" style={{ animationDelay: '0.15s' }}>
             {t.hero.name}
           </h1>
-          <p className="text-white/85 text-base md:text-lg font-light leading-relaxed mb-10 max-w-lg">
+          <p className="fade-up font-display text-3xl md:text-5xl font-light text-white/90 mt-4 md:mt-5" style={{ animationDelay: '0.25s' }}>
+            {t.hero.tagline_lead} <em className="hero-x-em">{t.hero.tagline_em}</em>
+          </p>
+          <p className="fade-up text-white/70 text-base md:text-lg font-light leading-relaxed mt-6 max-w-lg" style={{ animationDelay: '0.35s' }}>
             {t.hero.subtitle}
           </p>
-          <div className="flex flex-wrap gap-4">
-            <a
-              href="#portfolio"
-              className="inline-flex items-center gap-2 bg-on-deep text-surface-deep px-6 py-3 text-sm font-medium tracking-wide hover:bg-on-deep/90 transition-colors"
-            >
+          <div className="fade-up flex flex-col sm:flex-row gap-3 mt-9" style={{ animationDelay: '0.45s' }}>
+            <a href="#portfolio" className="btn-glow">
               {t.hero.cta_portfolio}
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 border border-white/50 text-white px-6 py-3 text-sm font-medium tracking-wide hover:border-white hover:bg-white/10 transition-colors"
-            >
+            <a href="#contact" className="btn-ghost">
               {t.hero.cta_contact}
             </a>
           </div>
         </div>
-      </div>
-      <div className="absolute bottom-8 right-8 md:right-12 hidden md:flex flex-col items-center gap-2 opacity-60">
-        <div className="w-px h-12 bg-white/50 animate-pulse" />
-        <span className="text-white text-[10px] tracking-[0.2em] uppercase rotate-90 origin-center translate-y-4">
-          {t.hero.scroll}
-        </span>
+
+        <ul className="hero-x-stats fade-up" style={{ animationDelay: '0.55s' }}>
+          {t.hero.stats.map((s, i) => (
+            <li key={i} className="glass-tile">
+              <b className="font-display">
+                {s.value.replace('{categories}', String(populatedCategories.length))}
+              </b>
+              <span>{s.label}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

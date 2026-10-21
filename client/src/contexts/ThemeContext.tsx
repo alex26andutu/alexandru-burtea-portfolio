@@ -27,8 +27,9 @@ function getInitialTheme(defaultTheme: Theme, switchable: boolean): Theme {
     /* ignore */
   }
 
-  // Respect OS preference on first visit
-  if (window.matchMedia?.("(prefers-color-scheme: dark)").matches) return "dark";
+  // First visit gets the design's own default. The site is built dark-first
+  // (technical-drawing grid, glow accents), so the OS preference no longer
+  // decides; the toggle still lets a visitor switch and is remembered.
   return defaultTheme;
 }
 

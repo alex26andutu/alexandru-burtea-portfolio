@@ -84,6 +84,28 @@ export default function PortfolioSection() {
     [byCategory]
   );
 
+  /*
+   * Cards lean toward the cursor. Only on devices that really hover, and not
+   * for visitors who asked for reduced motion; everyone else gets flat cards.
+   */
+  const tilt = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) return;
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.setProperty('--ry', `${(x * 7).toFixed(2)}deg`);
+    el.style.setProperty('--rx', `${(-y * 7).toFixed(2)}deg`);
+    el.style.setProperty('--mx', `${((x + 0.5) * 100).toFixed(1)}%`);
+    el.style.setProperty('--my', `${((y + 0.5) * 100).toFixed(1)}%`);
+  }, []);
+
+  const untilt = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const el = e.currentTarget;
+    el.style.setProperty('--rx', '0deg');
+    el.style.setProperty('--ry', '0deg');
+  }, []);
+
   const openPhotos = openCategory ? byCategory.get(openCategory)! : [];
 
   // ── Progressive reveal ────────────────────────────────────────────────
@@ -136,12 +158,14 @@ export default function PortfolioSection() {
         {openCategory === null ? (
           /* ── LANDING: six category cards ── */
           <div className="portfolio-cards">
-            {cards.map(({ category, lead, count }) => (
+            {cards.map(({ category, lead, count }, idx) => (
               <button
                 key={category}
                 type="button"
                 className="portfolio-card"
                 onClick={() => openCat(category)}
+                onMouseMove={tilt}
+                onMouseLeave={untilt}
                 aria-label={`${t.portfolio.categories[category]} — ${count} ${t.portfolio.photos}`}
               >
                 <span className="portfolio-card-media">
@@ -157,22 +181,19 @@ export default function PortfolioSection() {
                     />
                   </picture>
                 </span>
+                <span className="portfolio-card-idx" aria-hidden="true">
+                  {String(idx + 1).padStart(2, '0')} — {count} {t.portfolio.photos}
+                </span>
                 <span className="portfolio-card-body">
-                  <span className="portfolio-card-title font-display">
-                    {t.portfolio.categories[category]}
-                  </span>
-                  <span className="portfolio-card-blurb">
-                    {t.portfolio.category_blurb[category]}
-                  </span>
-                  <span className="portfolio-card-foot">
-                    <span className="portfolio-card-count">
-                      {count} {t.portfolio.photos}
+                  <span className="portfolio-card-text">
+                    <span className="portfolio-card-title font-display">
+                      {t.portfolio.categories[category]}
                     </span>
-                    <span className="portfolio-card-cta">
-                      {t.portfolio.view_all}
-                      <span aria-hidden="true"> →</span>
+                    <span className="portfolio-card-blurb">
+                      {t.portfolio.category_blurb[category]}
                     </span>
                   </span>
+                  <span className="portfolio-card-go" aria-hidden="true">→</span>
                 </span>
               </button>
             ))}

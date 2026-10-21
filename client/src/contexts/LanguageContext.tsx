@@ -42,6 +42,11 @@ interface Translations {
     cta_portfolio: string;
     cta_contact: string;
     scroll: string;
+    /** Smaller line under the name, second half picked out in the accent. */
+    tagline_lead: string;
+    tagline_em: string;
+    /** Glass stat tiles in the hero. {categories} is filled from the gallery. */
+    stats: { value: string; label: string }[];
     /** Alt for the hero photo. Describes what is pictured only — no material
      *  or construction claims. */
     photo_alt: string;
@@ -80,7 +85,8 @@ interface Translations {
     subheading: string;
     caption: string;
     quote: string;
-    steps: { number: string; title: string; description: string }[];
+    /** tools: short tags shown on the step; omit rather than guess. */
+    steps: { number: string; title: string; description: string; tools?: string[] }[];
   };
   skills: {
     heading: string;
@@ -134,6 +140,13 @@ const translations: Record<Language, Translations> = {
       cta_portfolio: 'View My Work',
       cta_contact: 'Get in Touch',
       scroll: 'Scroll',
+      tagline_lead: 'Precision,',
+      tagline_em: 'made to measure.',
+      stats: [
+        { value: '10+', label: 'Years of craft' },
+        { value: '4', label: 'Countries' },
+        { value: '{categories}', label: 'Categories' },
+      ],
       photo_alt: 'Dining area with a slatted room divider and built-in display niches',
     },
     about: {
@@ -194,16 +207,19 @@ const translations: Record<Language, Translations> = {
           number: '02',
           title: '3D design',
           description: 'Building a detailed 3D model in SketchUp with the actual materials and finishes, plus production drawings for the workshop.',
+          tools: ['SketchUp Pro', 'Production drawings'],
         },
         {
           number: '03',
           title: 'Production',
           description: 'Producing in the workshop — panel saw, CNC, edge-bander, spindle moulder. Working in MDF, laminated board, plywood and solid wood.',
+          tools: ['Panel saw', 'CNC', 'Veneering'],
         },
         {
           number: '04',
           title: 'Installation',
           description: 'On-site assembly and installation, scribed and fitted so everything lands square and tight.',
+          tools: ['On site'],
         },
       ],
     },
@@ -265,6 +281,13 @@ const translations: Record<Language, Translations> = {
       cta_portfolio: 'Bekijk mijn werk',
       cta_contact: 'Neem contact op',
       scroll: 'Scroll',
+      tagline_lead: 'Precisie,',
+      tagline_em: 'op maat.',
+      stats: [
+        { value: '10+', label: 'Jaar vakwerk' },
+        { value: '4', label: 'Landen' },
+        { value: '{categories}', label: 'Categorieën' },
+      ],
       photo_alt: 'Eethoek met een lamellenscheidingswand en ingebouwde nissen',
     },
     about: {
@@ -325,16 +348,19 @@ const translations: Record<Language, Translations> = {
           number: '02',
           title: '3D-ontwerp',
           description: 'Een gedetailleerd 3D-model opbouwen in SketchUp met de werkelijke materialen en afwerkingen, plus werktekeningen voor de werkplaats.',
+          tools: ['SketchUp Pro', 'Werktekening'],
         },
         {
           number: '03',
           title: 'Productie',
           description: 'Produceren in de werkplaats — panelzaag, CNC, kantenlijmmachine, freesmachine. Werken in MDF, gelamineerd plaatmateriaal, multiplex en massief hout.',
+          tools: ['Panelzaag', 'CNC', 'Fineren'],
         },
         {
           number: '04',
           title: 'Montage',
           description: 'Montage en installatie op locatie, ingepast en afgewerkt zodat alles strak en haaks zit.',
+          tools: ['Op locatie'],
         },
       ],
     },

@@ -13,7 +13,7 @@
     <meta name="author" content="Alexandru Burtea" />
     <meta name="keywords" content="furniture maker, cabinet maker, meubelmaker, interieurbouwer, keukenmonteur, kastenmaker, custom furniture, maatwerk meubelen, kitchens, wardrobes, Netherlands, Germany, woodworking" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="theme-color" content="#D6692F" />
+    <meta name="theme-color" content="#0B0B0C" />
     <link rel="canonical" href="https://alexandruburtea.nl/" />
 
     <!-- Language alternates (hreflang) — content is bilingual on the same URL,
@@ -136,8 +136,7 @@
       (function () {
         try {
           var stored = localStorage.getItem('theme');
-          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          var theme = stored || (prefersDark ? 'dark' : 'light');
+          var theme = stored || 'dark';
           if (theme === 'dark') document.documentElement.classList.add('dark');
         } catch (e) {}
       })();
